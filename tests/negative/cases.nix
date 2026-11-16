@@ -309,4 +309,20 @@ in [
     expect = "the Pirol exporter is not implemented yet";
     module.company.exports.pirol.enable = true;
   }
+  {
+    name = "document-missing-source";
+    expect = "document 'ghost' source does not exist under company.root: 'legal/ghost.md'";
+    module.company.documents.ghost = {
+      title = "x";
+      source = "legal/ghost.md";
+    };
+  }
+  {
+    name = "document-unknown-placeholder";
+    expect = "document 'typo' has an unknown placeholder '{{ entity.legalname }}'";
+    module.company.documents.typo = {
+      title = "x";
+      source = "legal/typo.md";
+    };
+  }
 ]

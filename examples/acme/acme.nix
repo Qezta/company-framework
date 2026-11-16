@@ -255,6 +255,11 @@
       };
     };
 
+    documents.terms = {
+      title = "Terms of service";
+      source = "legal/terms.md";
+    };
+
     pricing = {
       currency = "INR";
       plans = {

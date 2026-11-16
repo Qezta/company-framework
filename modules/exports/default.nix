@@ -15,6 +15,7 @@ in {
     ./serverless-workflow.nix
     ./mermaid.nix
     ./openslo.nix
+    ./documents.nix
     ./pirol.nix
   ];
 

@@ -116,6 +116,26 @@ in
       };
       expected = ["a"];
     };
+    ## Unset placeholders render as a visible marker and warn, not fail.
+    testDocumentUnsetPlaceholder = let
+      eval = companyLib.evalCompany {
+        modules = [
+          base
+          ({lib, ...}: {company.entity.contacts.legal = lib.mkForce null;})
+        ];
+      };
+    in {
+      expr = {
+        marked = lib.hasInfix "[TODO: entity.contacts.legal]" eval.config.company.renderedDocuments.terms;
+        warned = builtins.elem "document 'terms' has unset placeholders: entity.contacts.legal" eval.config.warnings;
+        failed = companyLib.failedAssertions eval.config;
+      };
+      expected = {
+        marked = true;
+        warned = true;
+        failed = [];
+      };
+    };
     testReachable = {
       expr = lib.sort (x: y: x < y) (graph.reachable {
           a = ["b"];
