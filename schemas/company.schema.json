@@ -5,59 +5,227 @@
   "description": "spec.json emitted by company-framework. Every option is always present; unset optional values are null.",
   "type": "object",
   "additionalProperties": false,
-  "required": ["specVersion", "asOf", "entity", "people", "roles", "domains", "systems"],
+  "required": [
+    "specVersion",
+    "asOf",
+    "entity",
+    "people",
+    "roles",
+    "domains",
+    "systems",
+    "policies",
+    "processes",
+    "reliability",
+    "pricing",
+    "decisions"
+  ],
   "properties": {
-    "specVersion": { "const": "0.1.0" },
-    "asOf": { "$ref": "#/$defs/nullableDate" },
-    "entity": { "$ref": "#/$defs/entity" },
-    "people": { "type": "object", "additionalProperties": { "$ref": "#/$defs/person" } },
-    "roles": { "type": "object", "additionalProperties": { "$ref": "#/$defs/role" } },
-    "domains": { "type": "object", "additionalProperties": { "$ref": "#/$defs/domain" } },
-    "systems": { "type": "object", "additionalProperties": { "$ref": "#/$defs/system" } }
+    "specVersion": {
+      "const": "0.1.0"
+    },
+    "asOf": {
+      "$ref": "#/$defs/nullableDate"
+    },
+    "entity": {
+      "$ref": "#/$defs/entity"
+    },
+    "people": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/person"
+      }
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/role"
+      }
+    },
+    "domains": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/domain"
+      }
+    },
+    "systems": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/system"
+      }
+    },
+    "policies": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/policy"
+      }
+    },
+    "processes": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z0-9](-?[a-z0-9])*$"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/process"
+      }
+    },
+    "reliability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "slos"
+      ],
+      "properties": {
+        "slos": {
+          "type": "object",
+          "additionalProperties": {
+            "$ref": "#/$defs/slo"
+          }
+        }
+      }
+    },
+    "pricing": {
+      "$ref": "#/$defs/pricing"
+    },
+    "decisions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/decision"
+      }
+    }
   },
   "$defs": {
-    "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
-    "nullableDate": { "oneOf": [{ "$ref": "#/$defs/date" }, { "type": "null" }] },
-    "email": { "type": "string", "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$" },
-    "nullableEmail": { "oneOf": [{ "$ref": "#/$defs/email" }, { "type": "null" }] },
-    "nullableString": { "type": ["string", "null"] },
-    "stringMap": { "type": "object", "additionalProperties": { "type": "string" } },
-    "stringList": { "type": "array", "items": { "type": "string" } },
+    "date": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "nullableDate": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/date"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "email": {
+      "type": "string",
+      "pattern": "^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$"
+    },
+    "nullableEmail": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/email"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "nullableString": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "stringMap": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
     "entity": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["name", "legalName", "shortName", "description", "jurisdiction", "registration", "domains", "contacts", "links", "brand"],
+      "required": [
+        "name",
+        "legalName",
+        "shortName",
+        "description",
+        "jurisdiction",
+        "registration",
+        "domains",
+        "contacts",
+        "links",
+        "brand"
+      ],
       "properties": {
-        "name": { "type": "string" },
-        "legalName": { "type": "string" },
-        "shortName": { "$ref": "#/$defs/nullableString" },
-        "description": { "type": "string" },
-        "jurisdiction": { "type": "string" },
-        "registration": { "$ref": "#/$defs/stringMap" },
-        "domains": { "$ref": "#/$defs/stringList" },
+        "name": {
+          "type": "string"
+        },
+        "legalName": {
+          "type": "string"
+        },
+        "shortName": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "description": {
+          "type": "string"
+        },
+        "jurisdiction": {
+          "type": "string"
+        },
+        "registration": {
+          "$ref": "#/$defs/stringMap"
+        },
+        "domains": {
+          "$ref": "#/$defs/stringList"
+        },
         "contacts": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["general", "security", "legal", "privacy"],
+          "required": [
+            "general",
+            "security",
+            "legal",
+            "privacy"
+          ],
           "properties": {
-            "general": { "$ref": "#/$defs/nullableEmail" },
-            "security": { "$ref": "#/$defs/nullableEmail" },
-            "legal": { "$ref": "#/$defs/nullableEmail" },
-            "privacy": { "$ref": "#/$defs/nullableEmail" }
+            "general": {
+              "$ref": "#/$defs/nullableEmail"
+            },
+            "security": {
+              "$ref": "#/$defs/nullableEmail"
+            },
+            "legal": {
+              "$ref": "#/$defs/nullableEmail"
+            },
+            "privacy": {
+              "$ref": "#/$defs/nullableEmail"
+            }
           }
         },
-        "links": { "$ref": "#/$defs/stringMap" },
+        "links": {
+          "$ref": "#/$defs/stringMap"
+        },
         "brand": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["colors", "fonts", "logo"],
+          "required": [
+            "colors",
+            "fonts",
+            "logo"
+          ],
           "properties": {
             "colors": {
               "type": "object",
-              "additionalProperties": { "type": "string", "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$" }
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$"
+              }
             },
-            "fonts": { "$ref": "#/$defs/stringMap" },
-            "logo": { "$ref": "#/$defs/nullableString" }
+            "fonts": {
+              "$ref": "#/$defs/stringMap"
+            },
+            "logo": {
+              "$ref": "#/$defs/nullableString"
+            }
           }
         }
       }
@@ -65,63 +233,451 @@
     "person": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["displayName", "email", "githubUser", "roles", "status", "startDate", "endDate"],
+      "required": [
+        "displayName",
+        "email",
+        "githubUser",
+        "roles",
+        "status",
+        "startDate",
+        "endDate"
+      ],
       "properties": {
-        "displayName": { "type": "string" },
-        "email": { "$ref": "#/$defs/email" },
-        "githubUser": { "$ref": "#/$defs/nullableString" },
-        "roles": { "$ref": "#/$defs/stringList" },
-        "status": { "enum": ["active", "onboarding", "offboarding", "former"] },
-        "startDate": { "$ref": "#/$defs/nullableDate" },
-        "endDate": { "$ref": "#/$defs/nullableDate" }
+        "displayName": {
+          "type": "string"
+        },
+        "email": {
+          "$ref": "#/$defs/email"
+        },
+        "githubUser": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "roles": {
+          "$ref": "#/$defs/stringList"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "onboarding",
+            "offboarding",
+            "former"
+          ]
+        },
+        "startDate": {
+          "$ref": "#/$defs/nullableDate"
+        },
+        "endDate": {
+          "$ref": "#/$defs/nullableDate"
+        }
       }
     },
     "role": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "parent", "githubTeam", "githubPermission", "responsibilities"],
+      "required": [
+        "description",
+        "parent",
+        "githubTeam",
+        "githubPermission",
+        "responsibilities"
+      ],
       "properties": {
-        "description": { "type": "string" },
-        "parent": { "$ref": "#/$defs/nullableString" },
-        "githubTeam": { "$ref": "#/$defs/nullableString" },
-        "githubPermission": { "enum": ["pull", "triage", "push", "maintain", "admin"] },
-        "responsibilities": { "$ref": "#/$defs/stringList" }
+        "description": {
+          "type": "string"
+        },
+        "parent": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "githubTeam": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "githubPermission": {
+          "enum": [
+            "pull",
+            "triage",
+            "push",
+            "maintain",
+            "admin"
+          ]
+        },
+        "responsibilities": {
+          "$ref": "#/$defs/stringList"
+        }
       }
     },
     "domain": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "owner"],
+      "required": [
+        "description",
+        "owner"
+      ],
       "properties": {
-        "description": { "type": "string" },
-        "owner": { "type": "string", "minLength": 1 }
+        "description": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "system": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["description", "type", "lifecycle", "domain", "owner", "repo", "codeowners", "dependsOn", "links"],
+      "required": [
+        "description",
+        "type",
+        "lifecycle",
+        "domain",
+        "owner",
+        "repo",
+        "codeowners",
+        "dependsOn",
+        "links"
+      ],
       "properties": {
-        "description": { "type": "string" },
-        "type": { "enum": ["website", "service", "library", "infrastructure", "documentation", "tool"] },
-        "lifecycle": { "enum": ["experimental", "production", "deprecated"] },
-        "domain": { "$ref": "#/$defs/nullableString" },
-        "owner": { "type": "string", "minLength": 1 },
-        "repo": { "oneOf": [{ "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9._-]+$" }, { "type": "null" }] },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "website",
+            "service",
+            "library",
+            "infrastructure",
+            "documentation",
+            "tool"
+          ]
+        },
+        "lifecycle": {
+          "enum": [
+            "experimental",
+            "production",
+            "deprecated"
+          ]
+        },
+        "domain": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9-]*/[A-Za-z0-9._-]+$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
         "codeowners": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["pattern", "owners"],
+            "required": [
+              "pattern",
+              "owners"
+            ],
             "properties": {
-              "pattern": { "type": "string" },
-              "owners": { "$ref": "#/$defs/stringList" }
+              "pattern": {
+                "type": "string"
+              },
+              "owners": {
+                "$ref": "#/$defs/stringList"
+              }
             }
           }
         },
-        "dependsOn": { "$ref": "#/$defs/stringList" },
-        "links": { "$ref": "#/$defs/stringMap" }
+        "dependsOn": {
+          "$ref": "#/$defs/stringList"
+        },
+        "links": {
+          "$ref": "#/$defs/stringMap"
+        }
+      }
+    },
+    "policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "owner",
+        "doc",
+        "reviewEveryDays",
+        "lastReviewed",
+        "rules"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doc": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "reviewEveryDays": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "lastReviewed": {
+          "$ref": "#/$defs/nullableDate"
+        },
+        "rules": {
+          "type": "object"
+        }
+      }
+    },
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "owner",
+        "doc",
+        "trigger",
+        "inputs",
+        "steps"
+      ],
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "owner": {
+          "type": "string",
+          "minLength": 1
+        },
+        "doc": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "trigger": {
+          "enum": [
+            "manual",
+            "schedule",
+            "event"
+          ]
+        },
+        "inputs": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "type",
+              "description",
+              "required"
+            ],
+            "properties": {
+              "type": {
+                "enum": [
+                  "string",
+                  "number",
+                  "integer",
+                  "boolean",
+                  "object",
+                  "array"
+                ]
+              },
+              "description": {
+                "type": "string"
+              },
+              "required": {
+                "type": "boolean"
+              }
+            }
+          }
+        },
+        "steps": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/step"
+          }
+        }
+      }
+    },
+    "step": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "role",
+        "kind",
+        "approvers",
+        "slaHours",
+        "next"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "task",
+            "approval",
+            "automated",
+            "decision"
+          ]
+        },
+        "approvers": {
+          "$ref": "#/$defs/stringList"
+        },
+        "slaHours": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "next": {
+          "$ref": "#/$defs/stringList"
+        }
+      }
+    },
+    "slo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "system",
+        "description",
+        "indicator",
+        "target",
+        "window",
+        "metricSource"
+      ],
+      "properties": {
+        "system": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "indicator": {
+          "enum": [
+            "http-availability",
+            "latency",
+            "custom"
+          ]
+        },
+        "target": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "window": {
+          "type": "string",
+          "pattern": "^[0-9]+[mhdw]$"
+        },
+        "metricSource": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "spec"
+          ],
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "spec": {
+              "type": "object",
+              "required": [
+                "good",
+                "total"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "currency",
+        "plans"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$"
+        },
+        "plans": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "priceMinor",
+              "interval",
+              "features"
+            ],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "priceMinor": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "interval": {
+                "enum": [
+                  "one-time",
+                  "month",
+                  "year"
+                ]
+              },
+              "features": {
+                "$ref": "#/$defs/stringList"
+              }
+            }
+          }
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "file",
+        "title",
+        "status",
+        "date"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/$defs/nullableString"
+        },
+        "date": {
+          "$ref": "#/$defs/nullableString"
+        }
       }
     }
   }

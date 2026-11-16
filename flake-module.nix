@@ -3,8 +3,9 @@
 ##   imports = [ inputs.company-framework.flakeModules.company ];
 ##   company.modules = [ ./company.nix ];
 ##
-## and get packages.{spec,exports}, apps.update-exports and a drift check
-## comparing the committed exports directory with a fresh build.
+## and get packages.{spec,exports}, apps.update-exports, a drift check
+## comparing the committed exports directory with a fresh build, and a
+## validation check against each export's standard.
 {
   lib,
   config,
@@ -83,6 +84,10 @@ in {
         program = lib.getExe updateExports;
         meta.description = "Regenerate the committed exports directory";
       };
+
+      ## Every export checked against the standard it targets, plus the
+      ## framework's OPA policies.
+      checks.company-exports-valid = (import ./lib/validate.nix {inherit pkgs;}).check {inherit exports;};
 
       checks.company-exports-drift =
         if builtins.pathExists committed

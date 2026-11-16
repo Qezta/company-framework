@@ -1,0 +1,6 @@
+rules:
+  imports:
+    unresolved-reference:
+      # data.company is supplied at evaluation time by exports/opa/data.json,
+      # so Regal cannot resolve it statically.
+      level: ignore

@@ -5,3 +5,9 @@ path = "**"
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Divit Mittal"
 SPDX-License-Identifier = "MIT"
+
+[[annotations]]
+path = ["vendor/**/*.json", "vendor/**/*.yaml"]
+precedence = "override"
+SPDX-FileCopyrightText = "The Backstage Authors; The Serverless Workflow Specification Authors"
+SPDX-License-Identifier = "Apache-2.0"

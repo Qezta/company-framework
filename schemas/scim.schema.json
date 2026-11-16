@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Qezta/company-framework/schemas/scim.schema.json",
+  "title": "SCIM 2.0 ListResponse of Users or Groups",
+  "description": "The subset of SCIM 2.0 emitted by company-framework. No official JSON Schema exists; this follows RFC 7643 §4.1 (User), §4.2 (Group), §8.7.1 (schema URNs) and RFC 7644 §3.4.2 (ListResponse). See schemas/PROVENANCE.md.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemas", "totalResults", "startIndex", "itemsPerPage", "Resources"],
+  "properties": {
+    "schemas": { "const": ["urn:ietf:params:scim:api:messages:2.0:ListResponse"] },
+    "totalResults": { "type": "integer", "minimum": 0 },
+    "startIndex": { "type": "integer", "minimum": 1 },
+    "itemsPerPage": { "type": "integer", "minimum": 0 },
+    "Resources": { "type": "array", "items": { "oneOf": [{ "$ref": "#/$defs/user" }, { "$ref": "#/$defs/group" }] } }
+  },
+  "$defs": {
+    "user": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemas", "externalId", "userName", "displayName", "name", "emails", "active"],
+      "properties": {
+        "schemas": { "const": ["urn:ietf:params:scim:schemas:core:2.0:User"] },
+        "externalId": { "type": "string", "minLength": 1 },
+        "userName": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string" },
+        "name": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["formatted"],
+          "properties": { "formatted": { "type": "string" } }
+        },
+        "emails": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "type", "primary"],
+            "properties": {
+              "value": { "type": "string" },
+              "type": { "enum": ["work", "home", "other"] },
+              "primary": { "type": "boolean" }
+            }
+          }
+        },
+        "active": { "type": "boolean" }
+      }
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemas", "externalId", "displayName", "members"],
+      "properties": {
+        "schemas": { "const": ["urn:ietf:params:scim:schemas:core:2.0:Group"] },
+        "externalId": { "type": "string", "minLength": 1 },
+        "displayName": { "type": "string", "minLength": 1 },
+        "members": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["value", "display", "type"],
+            "properties": {
+              "value": { "type": "string" },
+              "display": { "type": "string" },
+              "type": { "const": "User" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

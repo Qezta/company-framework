@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Qezta/company-framework/schemas/pricing.schema.json",
+  "title": "Pricing",
+  "description": "pricing.json emitted by company-framework.",
+  "$defs": {
+    "stringList": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "currency",
+    "plans"
+  ],
+  "properties": {
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "plans": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "name",
+          "priceMinor",
+          "interval",
+          "features"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "priceMinor": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "interval": {
+            "enum": [
+              "one-time",
+              "month",
+              "year"
+            ]
+          },
+          "features": {
+            "$ref": "#/$defs/stringList"
+          }
+        }
+      }
+    }
+  }
+}
