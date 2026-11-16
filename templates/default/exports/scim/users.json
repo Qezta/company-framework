@@ -1,0 +1,29 @@
+{
+  "Resources": [
+    {
+      "active": true,
+      "displayName": "TODO: Your Name",
+      "emails": [
+        {
+          "primary": true,
+          "type": "work",
+          "value": "you@example.com"
+        }
+      ],
+      "externalId": "founder",
+      "name": {
+        "formatted": "TODO: Your Name"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "you@example.com"
+    }
+  ],
+  "itemsPerPage": 1,
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+  ],
+  "startIndex": 1,
+  "totalResults": 1
+}

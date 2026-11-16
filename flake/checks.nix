@@ -14,6 +14,11 @@ in {
     ...
   }: {
     checks = {
+      validate-mutations = import ../tests/validate-mutations.nix {
+        inherit pkgs;
+        inherit (self'.packages) exports;
+      };
+
       negative-tests = import ../tests/negative {inherit pkgs companyLib base;};
 
       lib-tests = let
@@ -28,9 +33,22 @@ in {
           ''
         );
 
-      spec-schema = pkgs.runCommand "company-spec-schema" {nativeBuildInputs = [pkgs.check-jsonschema];} ''
-        check-jsonschema --check-metaschema ${../schemas/company.schema.json}
-        check-jsonschema --schemafile ${../schemas/company.schema.json} ${self'.packages.spec}
+      schemas-valid = pkgs.runCommand "schemas-valid" {nativeBuildInputs = [pkgs.check-jsonschema];} ''
+        check-jsonschema --check-metaschema ${../schemas}/*.schema.json
+        touch $out
+      '';
+
+      opa-policies = pkgs.runCommand "opa-policies" {nativeBuildInputs = [(pkgs.callPackage ../pkgs/opa.nix {}) pkgs.regal];} ''
+        opa check --strict ${../opa/policies}
+        opa test ${../opa/policies} -v
+        ${lib.optionalString (pkgs.stdenv.hostPlatform.system != "x86_64-darwin") ''
+          ## Regal matches package paths to directory names, and the store copy
+          ## is named "<hash>-policies", so lint a copy under its real name.
+          ## Skipped on x86_64-darwin: frozen on nixpkgs 26.05, its older Regal
+          ## rejects the config's newer rule names. CI lints on Linux.
+          cp -r ${../opa/policies} policies && chmod -R u+w policies
+          regal lint --config-file ${../.regal/config.yaml} policies
+        ''}
         touch $out
       '';
 
@@ -53,7 +71,8 @@ in {
         package = pkgs.prek;
         gitPackage = pkgs.gitFull;
         src = ../.;
-        excludes = ["flake.lock" "/exports/"];
+        ## vendor/ stays byte-identical to upstream.
+        excludes = ["flake.lock" "/exports/" "^vendor/"];
         default_stages = ["pre-commit"];
         hooks = {
           treefmt.enable = false; # runs as the treefmt flake check instead

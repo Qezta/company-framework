@@ -9,18 +9,17 @@
 }: let
   inherit (lib) mkOption types;
   inherit (builtins) attrNames concatLists elem length match;
-  inherit (companyLib) dates graph;
+  inherit (companyLib) dates graph refs;
+  inherit (refs) check;
 
   cfg = config.company;
   roleIds = attrNames cfg.roles;
   domainIds = attrNames cfg.domains;
   systemIds = attrNames cfg.systems;
 
-  check = assertion: message: {inherit assertion message;};
   forEach = attrs: f: concatLists (lib.mapAttrsToList f attrs);
 
-  refersTo = ids: what: kind: ref:
-    check (elem ref ids) "${what} references unknown ${kind} '${ref}'";
+  inherit (refs) refersTo;
 
   isEmail = s: match "[^@[:space:]]+@[^@[:space:]]+\\.[^@[:space:]]+" s != null;
   isHexColor = s: match "#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})" s != null;
@@ -61,10 +60,7 @@
       check (length rs == 1) "GitHub team slug '${team}' is used by multiple roles: ${lib.concatMapStringsSep ", " (x: x.id) rs}")
     teamSlugs;
 
-  ownerChecks = what: owner:
-    if owner == ""
-    then [(check false "${what} has no owner")]
-    else [(refersTo roleIds "${what} owner" "role" owner)];
+  ownerChecks = refs.owner roleIds;
 
   domainChecks = forEach cfg.domains (id: d: ownerChecks "domain '${id}'" d.owner);
 

@@ -1,0 +1,8 @@
+apiVersion: "backstage.io/v1alpha1"
+kind: "Group"
+metadata:
+  description: "Sets direction and is accountable for everything."
+  name: "founder"
+spec:
+  children: []
+  type: "team"

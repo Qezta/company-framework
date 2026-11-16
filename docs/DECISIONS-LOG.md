@@ -2,7 +2,27 @@
 
 Smaller choices that don't warrant an ADR. Newest first.
 
-## 2026-11-16
+## 2026-11-16 (phase 2)
+
+- **Validation ships with the flake module.** `lib/validate.nix` runs every standard's validator plus the OPA policies on any company's exports, so consumers get `company-exports-valid` for free.
+- **Backstage `$ref` rewriting happens in a scratch copy** at check time; vendored schemas stay byte-identical to upstream.
+- **OpenSLO validated with `oslo`** packaged in `pkgs/oslo.nix` (no JSON Schema exists).
+- **Serverless Workflow pinned to 1.0.3**, not the four-day-old 1.1.0. Human steps map to `listen` for completion/approval events; automated steps `emit` a request event whose `source` is `<namespace>://processes/<id>` (the DSL requires a `scheme://` URI).
+- **OPA package is `policies.company`** so its rules don't collide with the `data.company` document.
+- **SCIM ids**: our ids go in `externalId`; group members reference them by that value, since SCIM `id`s are server-assigned.
+- **CODEOWNERS owners**: a role's GitHub team when it has one, else its current members' logins; rules that resolve to nobody produce a warning.
+- **release-please owns CHANGELOG.md** from Conventional Commits; the hand-written `[Unreleased]` section is folded into its first release.
+- **Renovate's github-actions manager is off**: workflows are generated, so a regex manager updates the pins in `flake/actions/common.nix` instead.
+- **The template ships pre-generated exports** so a fresh `nix flake init` passes `nix flake check` immediately.
+- **The template picks nixpkgs 26.05 on x86_64-darwin**, as the other Qezta repos do: nixpkgs-unstable (26.11) has dropped that platform and fails evaluation there.
+- **Validators are mutation-tested** (`tests/validate-mutations.nix`). The first version silently skipped six validators (`compgen` is missing from the sandbox's bash) and still passed; each case now breaks one export and requires rejection.
+- **Backstage entity names are checked separately**: Backstage enforces its naming rule in code, not in its JSON Schema, so schema validation alone accepted invalid names.
+- **OPA is built without its test suite on x86_64-darwin** (`pkgs/opa.nix`): it isn't cached there and its upstream tests fail to compile. Other platforms use the cached package.
+- **Exports are serialized in pure Nix** (`lib/serialize.nix`): CI on Linux showed nixpkgs-unstable's remarshal adding a `%YAML 1.1` header that 26.05's doesn't, so committed exports drifted by platform. Strings are always double-quoted in YAML.
+- **Regal lint is skipped on x86_64-darwin**: that platform is frozen on nixpkgs 26.05 and its older Regal rejects newer rule names; CI lints on Linux. `prefer-string-interpolation` is off because template strings need a newer OPA than 26.05 ships.
+- **Regal's `unresolved-reference` rule is off** (`.regal/config.yaml`): `data.company` only exists at evaluation time.
+
+## 2026-11-16 (phase 1)
 
 - **alejandra, not nixfmt.** Matches every other Qezta and DivitMittal repository.
 - **mdformat instead of markdownlint-cli2/prettier.** Same reason; mdformat both formats and checks, so a second Markdown linter would only conflict with it.

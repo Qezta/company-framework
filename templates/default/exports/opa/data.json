@@ -1,0 +1,32 @@
+{
+  "company": {
+    "asOf": null,
+    "people": {
+      "founder": {
+        "githubUser": null,
+        "roles": [
+          "founder"
+        ],
+        "status": "active"
+      }
+    },
+    "policies": {
+      "security": {
+        "lastReviewed": null,
+        "owner": "founder",
+        "reviewEveryDays": 365,
+        "rules": {},
+        "title": "Security"
+      }
+    },
+    "roles": {
+      "founder": {
+        "githubPermission": "pull",
+        "githubTeam": null,
+        "parent": null
+      }
+    },
+    "slos": {},
+    "systems": {}
+  }
+}

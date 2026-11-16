@@ -1,0 +1,13 @@
+apiVersion: "openslo/v1"
+kind: "Service"
+metadata:
+  name: "infra"
+spec:
+  description: "DNS, repositories and CI as code."
+---
+apiVersion: "openslo/v1"
+kind: "Service"
+metadata:
+  name: "website"
+spec:
+  description: "Marketing website at acme.example."

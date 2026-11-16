@@ -1,0 +1,11 @@
+rules:
+  imports:
+    unresolved-reference:
+      # data.company is supplied at evaluation time by exports/opa/data.json,
+      # so Regal cannot resolve it statically.
+      level: ignore
+  idiomatic:
+    prefer-string-interpolation:
+      # Template strings need a newer OPA than some platforms ship (x86_64-darwin
+      # has 1.16); sprintf keeps the policies portable.
+      level: ignore

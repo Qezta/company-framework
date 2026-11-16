@@ -13,3 +13,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - `spec.json` exporter and its JSON Schema (`schemas/company.schema.json`).
 - `flakeModules.company` with `exports`/`spec` packages, `update-exports` app and drift check.
 - Fictional example company in `examples/acme`.
+- Options for `policies`, `processes`, `reliability.slos`, `pricing`, `decisions`, `root`.
+- Exporters: Backstage catalog, SCIM 2.0, CODEOWNERS, OPA data + Rego policies, Serverless Workflow 1.0.3, Mermaid, OpenSLO v1, AGENTS.md, llms.txt, pricing.json; disabled Pirol stub.
+- `company-exports-valid` check validating every export against its standard.
+- Generated `docs/options.md`, `docs/standards.md`, `nix flake init` template.

@@ -4,7 +4,7 @@
   perSystem.treefmt = {
     projectRootFile = "flake.nix";
     ## Generated files are checked by the drift check, not reformatted.
-    settings.global.excludes = ["examples/*/exports/*" "LICENSES/*" "LICENSE"];
+    settings.global.excludes = ["examples/*/exports/*" "templates/*/exports/*" "vendor/*" "docs/options.md" "LICENSES/*" "LICENSE"];
     flakeCheck = true;
     programs = {
       alejandra.enable = true;

@@ -38,6 +38,11 @@
           command = "nix run .#update-exports";
         }
         {
+          name = "update-all";
+          help = "Regenerate acme and template exports and docs/options.md";
+          command = "nix run .#update-exports && nix run .#update-template-exports && nix run .#update-docs";
+        }
+        {
           name = "check";
           help = "Run every flake check";
           command = "nix flake check -L";

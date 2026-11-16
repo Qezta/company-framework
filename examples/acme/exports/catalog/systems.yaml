@@ -1,0 +1,17 @@
+apiVersion: "backstage.io/v1alpha1"
+kind: "System"
+metadata:
+  description: "Infrastructure and internal tooling."
+  name: "platform"
+spec:
+  domain: "domain:default/platform"
+  owner: "group:default/platform"
+---
+apiVersion: "backstage.io/v1alpha1"
+kind: "System"
+metadata:
+  description: "Everything customers see in a browser."
+  name: "web"
+spec:
+  domain: "domain:default/web"
+  owner: "group:default/engineering"

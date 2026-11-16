@@ -4,9 +4,54 @@
   companyLib,
   base,
 }: let
-  inherit (companyLib) dates graph;
+  inherit (companyLib) dates graph serialize;
 in
   lib.runTests {
+    testPrettyJSON = {
+      expr = serialize.toPrettyJSON {
+        b = [1 {c = null;}];
+        a = {};
+        s = "x\"y";
+      };
+      expected = ''
+        {
+          "a": {},
+          "b": [
+            1,
+            {
+              "c": null
+            }
+          ],
+          "s": "x\"y"
+        }
+      '';
+    };
+    testYAMLQuotesAmbiguousScalars = {
+      expr = serialize.toYAML {
+        on = "yes";
+        n = 1;
+        list = [
+          {
+            a = true;
+            b = [];
+          }
+          "x"
+        ];
+        "github.com/slug" = "o/r";
+        empty = {};
+      };
+      ## "n" and "on" are YAML 1.1 booleans, so those keys get quoted.
+      expected = ''
+        empty: {}
+        github.com/slug: "o/r"
+        list:
+          - a: true
+            b: []
+          - "x"
+        "n": 1
+        "on": "yes"
+      '';
+    };
     testLeapDay = {
       expr = map dates.isValid ["2024-02-29" "2026-02-29" "2000-02-29" "1900-02-29"];
       expected = [true false true false];

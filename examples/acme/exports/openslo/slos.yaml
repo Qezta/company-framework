@@ -1,0 +1,63 @@
+apiVersion: "openslo/v1"
+kind: "SLO"
+metadata:
+  displayName: "Infrastructure applies succeed"
+  name: "infra-apply-success"
+spec:
+  budgetingMethod: "Occurrences"
+  description: "Infrastructure applies succeed"
+  indicator:
+    metadata:
+      name: "infra-apply-success-custom"
+    spec:
+      ratioMetric:
+        counter: true
+        good:
+          metricSource:
+            spec:
+              query: "sum(ci_apply_total{result=\"success\"})"
+            type: "Prometheus"
+        total:
+          metricSource:
+            spec:
+              query: "sum(ci_apply_total)"
+            type: "Prometheus"
+  objectives:
+    - displayName: "Infrastructure applies succeed"
+      target: 0.99
+  service: "infra"
+  timeWindow:
+    - duration: "4w"
+      isRolling: true
+---
+apiVersion: "openslo/v1"
+kind: "SLO"
+metadata:
+  displayName: "acme.example serves successful responses"
+  name: "website-availability"
+spec:
+  budgetingMethod: "Occurrences"
+  description: "acme.example serves successful responses"
+  indicator:
+    metadata:
+      name: "website-availability-http-availability"
+    spec:
+      ratioMetric:
+        counter: true
+        good:
+          metricSource:
+            spec:
+              query: "sum(rate(http_requests_total{job=\"website\",code!~\"5..\"}[5m]))"
+            type: "Prometheus"
+        total:
+          metricSource:
+            spec:
+              query: "sum(rate(http_requests_total{job=\"website\"}[5m]))"
+            type: "Prometheus"
+  objectives:
+    - displayName: "acme.example serves successful responses"
+      target: 0.995
+  service: "website"
+  timeWindow:
+    - duration: "28d"
+      isRolling: true

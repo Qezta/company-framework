@@ -1,0 +1,46 @@
+do:
+  - triage:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.incident.triage.completed"
+      metadata:
+        kind: "task"
+        role: "platform"
+      then: "mitigate"
+      timeout:
+        after:
+          hours: 1
+  - mitigate:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.incident.mitigate.completed"
+      metadata:
+        kind: "task"
+        role: "engineering"
+      then: "postmortem"
+  - postmortem:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.incident.postmortem.completed"
+      metadata:
+        kind: "task"
+        role: "engineering"
+      then: "end"
+      timeout:
+        after:
+          hours: 120
+document:
+  dsl: "1.0.3"
+  metadata:
+    owner: "platform"
+    trigger: "manual"
+  name: "incident"
+  namespace: "acme"
+  title: "Incident response"
+  version: "0.1.0"

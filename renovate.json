@@ -1,0 +1,22 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended"],
+  "nix": { "enabled": true },
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 6am on the first day of the month"]
+  },
+  "github-actions": {
+    "enabled": false,
+    "description": "Workflows are generated from flake/actions; pins are updated there by the custom manager below."
+  },
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "SHA-pinned actions in flake/actions/common.nix",
+      "managerFilePatterns": ["/^flake/actions/common\\.nix$/"],
+      "matchStrings": ["\"(?<depName>[^@\"]+)@(?<currentDigest>[0-9a-f]{40})\"; # (?<currentValue>v[^\\s]+)"],
+      "datasourceTemplate": "github-tags"
+    }
+  ]
+}

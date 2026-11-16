@@ -1,5 +1,19 @@
 {
   "asOf": "2026-11-16",
+  "decisions": [
+    {
+      "date": null,
+      "file": "decisions/0001-record-architecture-decisions.md",
+      "status": null,
+      "title": "Record architecture decisions"
+    },
+    {
+      "date": null,
+      "file": "decisions/0002-describe-the-company-as-code.md",
+      "status": null,
+      "title": "Describe the company as code"
+    }
+  ],
   "domains": {
     "platform": {
       "description": "Infrastructure and internal tooling.",
@@ -91,6 +105,221 @@
       ],
       "startDate": "2026-02-01",
       "status": "former"
+    }
+  },
+  "policies": {
+    "acceptable-use": {
+      "doc": "policies/acceptable-use.md",
+      "lastReviewed": "2026-01-10",
+      "owner": "operations",
+      "reviewEveryDays": 90,
+      "rules": {},
+      "title": "Acceptable use"
+    },
+    "access-control": {
+      "doc": "policies/access-control.md",
+      "lastReviewed": "2026-09-01",
+      "owner": "founder",
+      "reviewEveryDays": 180,
+      "rules": {
+        "adminAllowed": [
+          "founder"
+        ],
+        "requireTwoFactor": true
+      },
+      "title": "Access control"
+    }
+  },
+  "pricing": {
+    "currency": "INR",
+    "plans": {
+      "setup": {
+        "features": [
+          "On-site installation"
+        ],
+        "interval": "one-time",
+        "name": "Setup",
+        "priceMinor": 1500000
+      },
+      "starter": {
+        "features": [
+          "One workshop",
+          "Email support"
+        ],
+        "interval": "month",
+        "name": "Starter",
+        "priceMinor": 49900
+      },
+      "workshop": {
+        "features": [
+          "Up to five workshops",
+          "Priority support"
+        ],
+        "interval": "year",
+        "name": "Workshop",
+        "priceMinor": 499000
+      }
+    }
+  },
+  "processes": {
+    "incident": {
+      "doc": null,
+      "inputs": {},
+      "owner": "platform",
+      "steps": [
+        {
+          "approvers": [],
+          "id": "triage",
+          "kind": "task",
+          "next": [
+            "mitigate"
+          ],
+          "role": "platform",
+          "slaHours": 1,
+          "title": "Triage and assign severity"
+        },
+        {
+          "approvers": [],
+          "id": "mitigate",
+          "kind": "task",
+          "next": [
+            "postmortem"
+          ],
+          "role": "engineering",
+          "slaHours": null,
+          "title": "Mitigate"
+        },
+        {
+          "approvers": [],
+          "id": "postmortem",
+          "kind": "task",
+          "next": [],
+          "role": "engineering",
+          "slaHours": 120,
+          "title": "Write postmortem"
+        }
+      ],
+      "title": "Incident response",
+      "trigger": "manual"
+    },
+    "onboarding": {
+      "doc": "processes/docs/onboarding.md",
+      "inputs": {
+        "needsHardware": {
+          "description": "Whether a laptop must be shipped.",
+          "required": false,
+          "type": "boolean"
+        },
+        "person": {
+          "description": "Person id of the new hire in company.people.",
+          "required": true,
+          "type": "string"
+        }
+      },
+      "owner": "operations",
+      "steps": [
+        {
+          "approvers": [],
+          "id": "collect-details",
+          "kind": "task",
+          "next": [
+            "approve-access"
+          ],
+          "role": "operations",
+          "slaHours": 48,
+          "title": "Collect details and documents"
+        },
+        {
+          "approvers": [
+            "founder"
+          ],
+          "id": "approve-access",
+          "kind": "approval",
+          "next": [
+            "provision-accounts"
+          ],
+          "role": "founder",
+          "slaHours": 24,
+          "title": "Approve GitHub and tool access"
+        },
+        {
+          "approvers": [],
+          "id": "provision-accounts",
+          "kind": "automated",
+          "next": [
+            "hardware"
+          ],
+          "role": "platform",
+          "slaHours": null,
+          "title": "Provision accounts from the spec"
+        },
+        {
+          "approvers": [],
+          "id": "hardware",
+          "kind": "decision",
+          "next": [
+            "ship-laptop",
+            "welcome"
+          ],
+          "role": "operations",
+          "slaHours": null,
+          "title": "Needs hardware?"
+        },
+        {
+          "approvers": [],
+          "id": "ship-laptop",
+          "kind": "task",
+          "next": [
+            "welcome"
+          ],
+          "role": "operations",
+          "slaHours": 72,
+          "title": "Ship laptop"
+        },
+        {
+          "approvers": [],
+          "id": "welcome",
+          "kind": "task",
+          "next": [],
+          "role": "founder",
+          "slaHours": null,
+          "title": "Welcome call"
+        }
+      ],
+      "title": "Employee onboarding",
+      "trigger": "event"
+    }
+  },
+  "reliability": {
+    "slos": {
+      "infra-apply-success": {
+        "description": "Infrastructure applies succeed",
+        "indicator": "custom",
+        "metricSource": {
+          "spec": {
+            "good": "sum(ci_apply_total{result=\"success\"})",
+            "total": "sum(ci_apply_total)"
+          },
+          "type": "Prometheus"
+        },
+        "system": "infra",
+        "target": 0.99,
+        "window": "4w"
+      },
+      "website-availability": {
+        "description": "acme.example serves successful responses",
+        "indicator": "http-availability",
+        "metricSource": {
+          "spec": {
+            "good": "sum(rate(http_requests_total{job=\"website\",code!~\"5..\"}[5m]))",
+            "total": "sum(rate(http_requests_total{job=\"website\"}[5m]))"
+          },
+          "type": "Prometheus"
+        },
+        "system": "website",
+        "target": 0.995,
+        "window": "28d"
+      }
     }
   },
   "roles": {
