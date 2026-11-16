@@ -11,7 +11,9 @@
   inherit (companyLib) refs;
   cfg = config.company;
 
-  placeholder = "\\{\\{[[:space:]]*([A-Za-z0-9_.]+)[[:space:]]*\\}\\}";
+  ## Bracket expressions rather than \{: Linux Nix's regex engine rejects
+  ## escaped braces that macOS accepts.
+  placeholder = "[{][{][[:space:]]*([A-Za-z0-9_.]+)[[:space:]]*[}][}]";
   context.entity =
     cfg.entity
     // {
