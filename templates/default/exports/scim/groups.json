@@ -1,0 +1,24 @@
+{
+  "Resources": [
+    {
+      "displayName": "founder",
+      "externalId": "founder",
+      "members": [
+        {
+          "display": "TODO: Your Name",
+          "type": "User",
+          "value": "founder"
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    }
+  ],
+  "itemsPerPage": 1,
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+  ],
+  "startIndex": 1,
+  "totalResults": 1
+}

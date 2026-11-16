@@ -1,0 +1,107 @@
+{
+  "asOf": null,
+  "decisions": [
+    {
+      "date": null,
+      "file": "decisions/0001-record-architecture-decisions.md",
+      "status": null,
+      "title": "Record architecture decisions"
+    }
+  ],
+  "domains": {},
+  "entity": {
+    "brand": {
+      "colors": {},
+      "fonts": {},
+      "logo": null
+    },
+    "contacts": {
+      "general": null,
+      "legal": null,
+      "privacy": null,
+      "security": null
+    },
+    "description": "TODO: one sentence about what the company does.",
+    "domains": [],
+    "jurisdiction": "TODO",
+    "legalName": "TODO: Company Private Limited",
+    "links": {},
+    "name": "TODO: Company",
+    "registration": {},
+    "shortName": null
+  },
+  "people": {
+    "founder": {
+      "displayName": "TODO: Your Name",
+      "email": "you@example.com",
+      "endDate": null,
+      "githubUser": null,
+      "roles": [
+        "founder"
+      ],
+      "startDate": null,
+      "status": "active"
+    }
+  },
+  "policies": {
+    "security": {
+      "doc": "policies/security.md",
+      "lastReviewed": null,
+      "owner": "founder",
+      "reviewEveryDays": 365,
+      "rules": {},
+      "title": "Security"
+    }
+  },
+  "pricing": {
+    "currency": "INR",
+    "plans": {}
+  },
+  "processes": {
+    "onboarding": {
+      "doc": "processes/docs/onboarding.md",
+      "inputs": {},
+      "owner": "founder",
+      "steps": [
+        {
+          "approvers": [],
+          "id": "prepare",
+          "kind": "task",
+          "next": [
+            "welcome"
+          ],
+          "role": "founder",
+          "slaHours": null,
+          "title": "Prepare accounts"
+        },
+        {
+          "approvers": [],
+          "id": "welcome",
+          "kind": "task",
+          "next": [],
+          "role": "founder",
+          "slaHours": null,
+          "title": "Welcome call"
+        }
+      ],
+      "title": "Onboarding",
+      "trigger": "manual"
+    }
+  },
+  "reliability": {
+    "slos": {}
+  },
+  "roles": {
+    "founder": {
+      "description": "Sets direction and is accountable for everything.",
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": null,
+      "responsibilities": [
+        "TODO: list responsibilities"
+      ]
+    }
+  },
+  "specVersion": "0.1.0",
+  "systems": {}
+}
