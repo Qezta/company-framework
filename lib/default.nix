@@ -7,6 +7,8 @@ lib.fix (self: {
 
   dates = import ./dates.nix {inherit lib;};
   graph = import ./graph.nix {inherit lib;};
+  refs = import ./refs.nix {inherit lib;};
+  derive = import ./derive.nix {inherit lib;};
 
   ## Evaluate company modules against the framework's option tree.
   evalCompany = {
@@ -45,6 +47,14 @@ lib.fix (self: {
         then pkgs.writeText "export.json" (builtins.toJSON file.value)
         else if file.format == "yaml"
         then yaml.generate "export.yaml" file.value
+        else if file.format == "yaml-stream"
+        then
+          pkgs.concatText "export.yaml" (lib.imap0 (i: doc:
+            pkgs.runCommand "doc-${toString i}.yaml" {} ''
+              ${lib.optionalString (i > 0) "echo --- > $out"}
+              cat ${yaml.generate "doc.yaml" doc} >> $out
+            '')
+          file.value)
         else pkgs.writeText "export.txt" file.value;
       copy =
         if file.format == "json"

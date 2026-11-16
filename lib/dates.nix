@@ -38,8 +38,24 @@
     && d.month <= 12
     && d.day >= 1
     && d.day <= daysInMonth d.year d.month;
+  ## Days since a fixed epoch (proleptic Gregorian), for date arithmetic.
+  ## Shifting the year to start in March puts the leap day last.
+  toDays = s: let
+    d = parse s;
+    y =
+      if d.month <= 2
+      then d.year - 1
+      else d.year;
+    m =
+      if d.month <= 2
+      then d.month + 12
+      else d.month;
+  in
+    365 * y + y / 4 - y / 100 + y / 400 + (153 * (m - 3) + 2) / 5 + d.day;
 in {
-  inherit isLeapYear daysInMonth parse isValid;
+  inherit isLeapYear daysInMonth parse isValid toDays;
+
+  daysBetween = a: b: toDays b - toDays a;
 
   ## Zero-padded ISO dates order correctly as strings.
   lessOrEqual = a: b: a <= b;
