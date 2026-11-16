@@ -1,33 +1,33 @@
-apiVersion: backstage.io/v1alpha1
-kind: User
+apiVersion: "backstage.io/v1alpha1"
+kind: "User"
 metadata:
-  name: asha
+  name: "asha"
 spec:
   memberOf:
-  - group:default/founder
-  - group:default/engineering
+    - "group:default/founder"
+    - "group:default/engineering"
   profile:
-    displayName: Asha Rao
-    email: asha@acme.example
+    displayName: "Asha Rao"
+    email: "asha@acme.example"
 ---
-apiVersion: backstage.io/v1alpha1
-kind: User
+apiVersion: "backstage.io/v1alpha1"
+kind: "User"
 metadata:
-  name: bilal
+  name: "bilal"
 spec:
   memberOf:
-  - group:default/platform
+    - "group:default/platform"
   profile:
-    displayName: Bilal Khan
-    email: bilal@acme.example
+    displayName: "Bilal Khan"
+    email: "bilal@acme.example"
 ---
-apiVersion: backstage.io/v1alpha1
-kind: User
+apiVersion: "backstage.io/v1alpha1"
+kind: "User"
 metadata:
-  name: chen
+  name: "chen"
 spec:
   memberOf:
-  - group:default/finance
+    - "group:default/finance"
   profile:
-    displayName: Chen Li
-    email: chen@acme.example
+    displayName: "Chen Li"
+    email: "chen@acme.example"

@@ -1,30 +1,30 @@
 do:
-- prepare:
-    listen:
-      to:
-        one:
-          with:
-            type: todo-company.onboarding.prepare.completed
-    metadata:
-      kind: task
-      role: founder
-    then: welcome
-- welcome:
-    listen:
-      to:
-        one:
-          with:
-            type: todo-company.onboarding.welcome.completed
-    metadata:
-      kind: task
-      role: founder
-    then: end
+  - prepare:
+      listen:
+        to:
+          one:
+            with:
+              type: "todo-company.onboarding.prepare.completed"
+      metadata:
+        kind: "task"
+        role: "founder"
+      then: "welcome"
+  - welcome:
+      listen:
+        to:
+          one:
+            with:
+              type: "todo-company.onboarding.welcome.completed"
+      metadata:
+        kind: "task"
+        role: "founder"
+      then: "end"
 document:
-  dsl: 1.0.3
+  dsl: "1.0.3"
   metadata:
-    owner: founder
-    trigger: manual
-  name: onboarding
-  namespace: todo-company
-  title: Onboarding
-  version: 0.1.0
+    owner: "founder"
+    trigger: "manual"
+  name: "onboarding"
+  namespace: "todo-company"
+  title: "Onboarding"
+  version: "0.1.0"

@@ -1,96 +1,96 @@
 do:
-- collect-details:
-    listen:
-      to:
-        one:
+  - collect-details:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.onboarding.collect-details.completed"
+      metadata:
+        kind: "task"
+        role: "operations"
+      then: "approve-access"
+      timeout:
+        after:
+          hours: 48
+  - approve-access:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.onboarding.approve-access.approved"
+      metadata:
+        approvers:
+          - "founder"
+        kind: "approval"
+        role: "founder"
+      then: "provision-accounts"
+      timeout:
+        after:
+          hours: 24
+  - provision-accounts:
+      emit:
+        event:
           with:
-            type: acme.onboarding.collect-details.completed
-    metadata:
-      kind: task
-      role: operations
-    then: approve-access
-    timeout:
-      after:
-        hours: 48
-- approve-access:
-    listen:
-      to:
-        one:
-          with:
-            type: acme.onboarding.approve-access.approved
-    metadata:
-      approvers:
-      - founder
-      kind: approval
-      role: founder
-    then: provision-accounts
-    timeout:
-      after:
-        hours: 24
-- provision-accounts:
-    emit:
-      event:
-        with:
-          source: acme://processes/onboarding
-          type: acme.onboarding.provision-accounts.requested
-    metadata:
-      kind: automated
-      role: platform
-    then: hardware
-- hardware:
-    metadata:
-      kind: decision
-      role: operations
-    switch:
-    - ship-laptop:
-        then: ship-laptop
-        when: ${ .decision == "ship-laptop" }
-    - welcome:
-        then: welcome
-        when: ${ .decision == "welcome" }
-- ship-laptop:
-    listen:
-      to:
-        one:
-          with:
-            type: acme.onboarding.ship-laptop.completed
-    metadata:
-      kind: task
-      role: operations
-    then: welcome
-    timeout:
-      after:
-        hours: 72
-- welcome:
-    listen:
-      to:
-        one:
-          with:
-            type: acme.onboarding.welcome.completed
-    metadata:
-      kind: task
-      role: founder
-    then: end
+            source: "acme://processes/onboarding"
+            type: "acme.onboarding.provision-accounts.requested"
+      metadata:
+        kind: "automated"
+        role: "platform"
+      then: "hardware"
+  - hardware:
+      metadata:
+        kind: "decision"
+        role: "operations"
+      switch:
+        - ship-laptop:
+            then: "ship-laptop"
+            when: "${ .decision == \"ship-laptop\" }"
+        - welcome:
+            then: "welcome"
+            when: "${ .decision == \"welcome\" }"
+  - ship-laptop:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.onboarding.ship-laptop.completed"
+      metadata:
+        kind: "task"
+        role: "operations"
+      then: "welcome"
+      timeout:
+        after:
+          hours: 72
+  - welcome:
+      listen:
+        to:
+          one:
+            with:
+              type: "acme.onboarding.welcome.completed"
+      metadata:
+        kind: "task"
+        role: "founder"
+      then: "end"
 document:
-  dsl: 1.0.3
+  dsl: "1.0.3"
   metadata:
-    owner: operations
-    trigger: event
-  name: onboarding
-  namespace: acme
-  title: Employee onboarding
-  version: 0.1.0
+    owner: "operations"
+    trigger: "event"
+  name: "onboarding"
+  namespace: "acme"
+  title: "Employee onboarding"
+  version: "0.1.0"
 input:
   schema:
     document:
       properties:
         needsHardware:
-          description: Whether a laptop must be shipped.
-          type: boolean
+          description: "Whether a laptop must be shipped."
+          type: "boolean"
         person:
-          description: Person id of the new hire in company.people.
-          type: string
+          description: "Person id of the new hire in company.people."
+          type: "string"
       required:
-      - person
-      type: object
-    format: json
+        - "person"
+      type: "object"
+    format: "json"

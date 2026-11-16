@@ -1,12 +1,12 @@
-apiVersion: backstage.io/v1alpha1
-kind: Resource
+apiVersion: "backstage.io/v1alpha1"
+kind: "Resource"
 metadata:
   annotations:
-    github.com/project-slug: acme-example/infra
-  description: DNS, repositories and CI as code.
-  name: infra
+    github.com/project-slug: "acme-example/infra"
+  description: "DNS, repositories and CI as code."
+  name: "infra"
 spec:
   dependsOn: []
-  owner: group:default/platform
-  system: system:default/platform
-  type: infrastructure
+  owner: "group:default/platform"
+  system: "system:default/platform"
+  type: "infrastructure"

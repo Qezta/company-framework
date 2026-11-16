@@ -1,43 +1,43 @@
-apiVersion: backstage.io/v1alpha1
-kind: Component
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
 metadata:
-  description: Internal handbook.
-  name: handbook
+  description: "Internal handbook."
+  name: "handbook"
 spec:
   dependsOn: []
-  lifecycle: deprecated
-  owner: group:default/operations
-  type: documentation
+  lifecycle: "deprecated"
+  owner: "group:default/operations"
+  type: "documentation"
 ---
-apiVersion: backstage.io/v1alpha1
-kind: Component
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
 metadata:
   annotations:
-    github.com/project-slug: acme-example/ui
-  description: Shared component library.
-  name: ui
+    github.com/project-slug: "acme-example/ui"
+  description: "Shared component library."
+  name: "ui"
 spec:
   dependsOn: []
-  lifecycle: experimental
-  owner: group:default/engineering
-  system: system:default/web
-  type: library
+  lifecycle: "experimental"
+  owner: "group:default/engineering"
+  system: "system:default/web"
+  type: "library"
 ---
-apiVersion: backstage.io/v1alpha1
-kind: Component
+apiVersion: "backstage.io/v1alpha1"
+kind: "Component"
 metadata:
   annotations:
-    github.com/project-slug: acme-example/website
-  description: Marketing website at acme.example.
+    github.com/project-slug: "acme-example/website"
+  description: "Marketing website at acme.example."
   links:
-  - title: live
-    url: https://acme.example
-  name: website
+    - title: "live"
+      url: "https://acme.example"
+  name: "website"
 spec:
   dependsOn:
-  - component:default/ui
-  - resource:default/infra
-  lifecycle: production
-  owner: group:default/engineering
-  system: system:default/web
-  type: website
+    - "component:default/ui"
+    - "resource:default/infra"
+  lifecycle: "production"
+  owner: "group:default/engineering"
+  system: "system:default/web"
+  type: "website"
