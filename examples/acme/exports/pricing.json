@@ -1,0 +1,31 @@
+{
+  "currency": "INR",
+  "plans": {
+    "setup": {
+      "features": [
+        "On-site installation"
+      ],
+      "interval": "one-time",
+      "name": "Setup",
+      "priceMinor": 1500000
+    },
+    "starter": {
+      "features": [
+        "One workshop",
+        "Email support"
+      ],
+      "interval": "month",
+      "name": "Starter",
+      "priceMinor": 49900
+    },
+    "workshop": {
+      "features": [
+        "Up to five workshops",
+        "Priority support"
+      ],
+      "interval": "year",
+      "name": "Workshop",
+      "priceMinor": 499000
+    }
+  }
+}

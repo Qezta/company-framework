@@ -1,0 +1,74 @@
+{
+  "Resources": [
+    {
+      "displayName": "engineering",
+      "externalId": "engineering",
+      "members": [
+        {
+          "display": "Asha Rao",
+          "type": "User",
+          "value": "asha"
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    {
+      "displayName": "finance",
+      "externalId": "finance",
+      "members": [
+        {
+          "display": "Chen Li",
+          "type": "User",
+          "value": "chen"
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    {
+      "displayName": "founder",
+      "externalId": "founder",
+      "members": [
+        {
+          "display": "Asha Rao",
+          "type": "User",
+          "value": "asha"
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    {
+      "displayName": "operations",
+      "externalId": "operations",
+      "members": [],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    },
+    {
+      "displayName": "platform",
+      "externalId": "platform",
+      "members": [
+        {
+          "display": "Bilal Khan",
+          "type": "User",
+          "value": "bilal"
+        }
+      ],
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:Group"
+      ]
+    }
+  ],
+  "itemsPerPage": 5,
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+  ],
+  "startIndex": 1,
+  "totalResults": 5
+}

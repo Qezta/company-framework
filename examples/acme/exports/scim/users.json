@@ -1,0 +1,86 @@
+{
+  "Resources": [
+    {
+      "active": true,
+      "displayName": "Asha Rao",
+      "emails": [
+        {
+          "primary": true,
+          "type": "work",
+          "value": "asha@acme.example"
+        }
+      ],
+      "externalId": "asha",
+      "name": {
+        "formatted": "Asha Rao"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "asha@acme.example"
+    },
+    {
+      "active": true,
+      "displayName": "Bilal Khan",
+      "emails": [
+        {
+          "primary": true,
+          "type": "work",
+          "value": "bilal@acme.example"
+        }
+      ],
+      "externalId": "bilal",
+      "name": {
+        "formatted": "Bilal Khan"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "bilal@acme.example"
+    },
+    {
+      "active": true,
+      "displayName": "Chen Li",
+      "emails": [
+        {
+          "primary": true,
+          "type": "work",
+          "value": "chen@acme.example"
+        }
+      ],
+      "externalId": "chen",
+      "name": {
+        "formatted": "Chen Li"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "chen@acme.example"
+    },
+    {
+      "active": false,
+      "displayName": "Dana Iyer",
+      "emails": [
+        {
+          "primary": true,
+          "type": "work",
+          "value": "dana@acme.example"
+        }
+      ],
+      "externalId": "dana",
+      "name": {
+        "formatted": "Dana Iyer"
+      },
+      "schemas": [
+        "urn:ietf:params:scim:schemas:core:2.0:User"
+      ],
+      "userName": "dana@acme.example"
+    }
+  ],
+  "itemsPerPage": 4,
+  "schemas": [
+    "urn:ietf:params:scim:api:messages:2.0:ListResponse"
+  ],
+  "startIndex": 1,
+  "totalResults": 4
+}

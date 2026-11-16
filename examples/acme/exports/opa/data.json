@@ -1,0 +1,122 @@
+{
+  "company": {
+    "asOf": "2026-11-16",
+    "people": {
+      "asha": {
+        "githubUser": "asha-acme-example",
+        "roles": [
+          "founder",
+          "engineering"
+        ],
+        "status": "active"
+      },
+      "bilal": {
+        "githubUser": "bilal-acme-example",
+        "roles": [
+          "platform"
+        ],
+        "status": "onboarding"
+      },
+      "chen": {
+        "githubUser": null,
+        "roles": [
+          "finance"
+        ],
+        "status": "active"
+      },
+      "dana": {
+        "githubUser": "dana-acme-example",
+        "roles": [
+          "engineering"
+        ],
+        "status": "former"
+      }
+    },
+    "policies": {
+      "acceptable-use": {
+        "lastReviewed": "2026-01-10",
+        "owner": "operations",
+        "reviewEveryDays": 90,
+        "rules": {},
+        "title": "Acceptable use"
+      },
+      "access-control": {
+        "lastReviewed": "2026-09-01",
+        "owner": "founder",
+        "reviewEveryDays": 180,
+        "rules": {
+          "adminAllowed": [
+            "founder"
+          ],
+          "requireTwoFactor": true
+        },
+        "title": "Access control"
+      }
+    },
+    "roles": {
+      "engineering": {
+        "githubPermission": "maintain",
+        "githubTeam": "engineering",
+        "parent": "founder"
+      },
+      "finance": {
+        "githubPermission": "pull",
+        "githubTeam": null,
+        "parent": "operations"
+      },
+      "founder": {
+        "githubPermission": "admin",
+        "githubTeam": "founders",
+        "parent": null
+      },
+      "operations": {
+        "githubPermission": "pull",
+        "githubTeam": null,
+        "parent": "founder"
+      },
+      "platform": {
+        "githubPermission": "push",
+        "githubTeam": "platform",
+        "parent": "engineering"
+      }
+    },
+    "slos": {
+      "infra-apply-success": {
+        "system": "infra",
+        "target": 0.99,
+        "window": "4w"
+      },
+      "website-availability": {
+        "system": "website",
+        "target": 0.995,
+        "window": "28d"
+      }
+    },
+    "systems": {
+      "handbook": {
+        "lifecycle": "deprecated",
+        "owner": "operations",
+        "repo": null,
+        "type": "documentation"
+      },
+      "infra": {
+        "lifecycle": "production",
+        "owner": "platform",
+        "repo": "acme-example/infra",
+        "type": "infrastructure"
+      },
+      "ui": {
+        "lifecycle": "experimental",
+        "owner": "engineering",
+        "repo": "acme-example/ui",
+        "type": "library"
+      },
+      "website": {
+        "lifecycle": "production",
+        "owner": "engineering",
+        "repo": "acme-example/website",
+        "type": "website"
+      }
+    }
+  }
+}

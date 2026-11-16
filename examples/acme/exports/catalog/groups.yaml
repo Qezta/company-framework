@@ -1,0 +1,52 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  description: Builds and runs the product.
+  name: engineering
+spec:
+  children:
+  - group:default/platform
+  parent: group:default/founder
+  type: team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  description: Books, invoicing and tax.
+  name: finance
+spec:
+  children: []
+  parent: group:default/operations
+  type: team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  description: Sets direction and is ultimately accountable for everything.
+  name: founder
+spec:
+  children:
+  - group:default/engineering
+  - group:default/operations
+  type: team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  description: Keeps the business running day to day.
+  name: operations
+spec:
+  children:
+  - group:default/finance
+  parent: group:default/founder
+  type: team
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  description: Owns infrastructure, CI and developer tooling.
+  name: platform
+spec:
+  children: []
+  parent: group:default/engineering
+  type: team
