@@ -18,6 +18,8 @@ Smaller choices that don't warrant an ADR. Newest first.
 - **Validators are mutation-tested** (`tests/validate-mutations.nix`). The first version silently skipped six validators (`compgen` is missing from the sandbox's bash) and still passed; each case now breaks one export and requires rejection.
 - **Backstage entity names are checked separately**: Backstage enforces its naming rule in code, not in its JSON Schema, so schema validation alone accepted invalid names.
 - **OPA is built without its test suite on x86_64-darwin** (`pkgs/opa.nix`): it isn't cached there and its upstream tests fail to compile. Other platforms use the cached package.
+- **Exports are serialized in pure Nix** (`lib/serialize.nix`): CI on Linux showed nixpkgs-unstable's remarshal adding a `%YAML 1.1` header that 26.05's doesn't, so committed exports drifted by platform. Strings are always double-quoted in YAML.
+- **Regal lint is skipped on x86_64-darwin**: that platform is frozen on nixpkgs 26.05 and its older Regal rejects newer rule names; CI lints on Linux. `prefer-string-interpolation` is off because template strings need a newer OPA than 26.05 ships.
 - **Regal's `unresolved-reference` rule is off** (`.regal/config.yaml`): `data.company` only exists at evaluation time.
 
 ## 2026-11-16 (phase 1)
