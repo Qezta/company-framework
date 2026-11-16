@@ -7,6 +7,11 @@
     ./roles.nix
     ./domains.nix
     ./systems.nix
+    ./policies.nix
+    ./processes.nix
+    ./reliability.nix
+    ./pricing.nix
+    ./decisions.nix
     ./exports
   ];
 }
