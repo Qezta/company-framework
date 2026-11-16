@@ -8,6 +8,33 @@ let
       email = "test@acme.example";
     }
     // extra;
+  step = id: extra:
+    {
+      inherit id;
+      title = id;
+      role = "operations";
+    }
+    // extra;
+  process = steps: {
+    title = "Broken";
+    owner = "operations";
+    inherit steps;
+  };
+  slo = extra:
+    {
+      system = "website";
+      description = "x";
+      indicator = "custom";
+      target = 0.9;
+      metricSource = {
+        type = "Prometheus";
+        spec = {
+          good = "g";
+          total = "t";
+        };
+      };
+    }
+    // extra;
 in [
   {
     name = "dangling-person-role";
@@ -151,5 +178,135 @@ in [
     name = "invalid-enum";
     expect = null;
     module.company.people.weird = person {status = "on-sabbatical";};
+  }
+  {
+    name = "process-cycle";
+    expect = "process 'loop' steps are not a DAG";
+    module.company.processes.loop = process [
+      (step "a" {next = ["b"];})
+      (step "b" {next = ["a"];})
+    ];
+  }
+  {
+    name = "process-unreachable-step";
+    expect = "process 'island' has steps unreachable from 'start': stranded";
+    module.company.processes.island = process [
+      (step "start" {})
+      (step "stranded" {})
+    ];
+  }
+  {
+    name = "process-unknown-next";
+    expect = "process 'lost' step 'a' next references unknown step 'nowhere'";
+    module.company.processes.lost = process [(step "a" {next = ["nowhere"];})];
+  }
+  {
+    name = "process-duplicate-steps";
+    expect = "process 'twice' has duplicate step ids: a";
+    module.company.processes.twice = process [
+      (step "a" {next = ["a"];})
+      (step "a" {})
+    ];
+  }
+  {
+    name = "approval-without-approvers";
+    expect = "process 'nod' step 'ok' is an approval with no approvers";
+    module.company.processes.nod = process [(step "ok" {kind = "approval";})];
+  }
+  {
+    name = "branching-non-decision";
+    expect = "process 'fork' step 'a' has several next steps but is not a decision";
+    module.company.processes.fork = process [
+      (step "a" {next = ["b" "c"];})
+      (step "b" {})
+      (step "c" {})
+    ];
+  }
+  {
+    name = "decision-with-one-branch";
+    expect = "process 'choice' step 'pick' is a decision with fewer than two next steps";
+    module.company.processes.choice = process [
+      (step "pick" {
+        kind = "decision";
+        next = ["b"];
+      })
+      (step "b" {})
+    ];
+  }
+  {
+    name = "process-bad-id";
+    expect = "process 'Bad_Id' id must be lowercase letters, digits and single dashes";
+    module.company.processes.Bad_Id = process [(step "a" {})];
+  }
+  {
+    name = "process-unknown-role";
+    expect = "process 'who' step 'a' role references unknown role 'ghosts'";
+    module.company.processes.who = process [(step "a" {role = "ghosts";})];
+  }
+  {
+    name = "slo-unknown-system";
+    expect = "slo 'phantom' system references unknown system 'nope'";
+    module.company.reliability.slos.phantom = slo {system = "nope";};
+  }
+  {
+    name = "slo-target-out-of-range";
+    expect = "slo 'greedy' target must be between 0 and 1";
+    module.company.reliability.slos.greedy = slo {target = 1.0;};
+  }
+  {
+    name = "slo-bad-window";
+    expect = "slo 'when' window is not a duration like '28d': 'monthly'";
+    module.company.reliability.slos.when = slo {window = "monthly";};
+  }
+  {
+    name = "slo-missing-queries";
+    expect = "slo 'blind' metricSource.spec needs 'good' and 'total' queries";
+    module.company.reliability.slos.blind = slo {
+      metricSource = {
+        type = "Prometheus";
+        spec = {};
+      };
+    };
+  }
+  {
+    name = "bad-currency";
+    expect = "pricing currency must be an ISO 4217 code like 'INR', got 'rupees'";
+    module = {lib, ...}: {company.pricing.currency = lib.mkForce "rupees";};
+  }
+  {
+    name = "policy-unknown-owner";
+    expect = "policy 'orphaned' owner references unknown role 'legal'";
+    module.company.policies.orphaned = {
+      title = "x";
+      owner = "legal";
+    };
+  }
+  {
+    name = "policy-missing-doc";
+    expect = "policy 'paper' doc does not exist: 'policies/missing.md'";
+    module.company.policies.paper = {
+      title = "x";
+      owner = "founder";
+      doc = "policies/missing.md";
+    };
+  }
+  {
+    name = "policy-bad-review-date";
+    expect = "policy 'stale' lastReviewed is not a valid ISO 8601 date: 'last year'";
+    module.company.policies.stale = {
+      title = "x";
+      owner = "founder";
+      lastReviewed = "last year";
+    };
+  }
+  {
+    name = "missing-decisions-dir";
+    expect = "decisionsDir 'adr' does not exist under company.root";
+    module = {lib, ...}: {company.decisionsDir = lib.mkForce "adr";};
+  }
+  {
+    name = "pirol-enabled";
+    expect = "the Pirol exporter is not implemented yet";
+    module.company.exports.pirol.enable = true;
   }
 ]
