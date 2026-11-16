@@ -25,6 +25,25 @@ jobs:
         name: exports
         path: exports/
     timeout-minutes: 30
+  template:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      with:
+        persist-credentials: false
+    - name: Install Nix
+      uses: nixbuild/nix-quick-install-action@9f63be77f412a248c9d9a65a4c82cf066cdf8f0c
+    - name: Nix cache
+      uses: DeterminateSystems/magic-nix-cache-action@84c0677f58dcedf3b91f8223ce36a9ea5b3c84b7
+    - name: nix flake init + check
+      run: |-
+        dir="$RUNNER_TEMP/company"
+        mkdir -p "$dir" && cd "$dir"
+        nix flake init -t "path:$GITHUB_WORKSPACE#default"
+        git init -q && git add -A
+        nix flake check -L --override-input company-framework "path:$GITHUB_WORKSPACE"
+    timeout-minutes: 30
 name: CI
 'on':
   pull_request: {}
