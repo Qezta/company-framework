@@ -1,0 +1,234 @@
+{
+  "asOf": "2026-11-16",
+  "domains": {
+    "platform": {
+      "description": "Infrastructure and internal tooling.",
+      "owner": "platform"
+    },
+    "web": {
+      "description": "Everything customers see in a browser.",
+      "owner": "engineering"
+    }
+  },
+  "entity": {
+    "brand": {
+      "colors": {
+        "background": "#060606",
+        "primary": "#ff0052",
+        "text": "#ccc"
+      },
+      "fonts": {
+        "body": "Roboto",
+        "heading": "Roboto Flex"
+      },
+      "logo": "assets/logo.svg"
+    },
+    "contacts": {
+      "general": "hello@acme.example",
+      "legal": "legal@acme.example",
+      "privacy": "privacy@acme.example",
+      "security": "security@acme.example"
+    },
+    "description": "Acme makes configurable widgets for small workshops.",
+    "domains": [
+      "acme.example",
+      "acme-widgets.example"
+    ],
+    "jurisdiction": "IN-KA",
+    "legalName": "Acme Widgets Private Limited",
+    "links": {
+      "github": "https://github.com/acme-example",
+      "website": "https://acme.example"
+    },
+    "name": "Acme",
+    "registration": {
+      "cin": "EXAMPLE-CIN-0000"
+    },
+    "shortName": "acme"
+  },
+  "people": {
+    "asha": {
+      "displayName": "Asha Rao",
+      "email": "asha@acme.example",
+      "endDate": null,
+      "githubUser": "asha-acme-example",
+      "roles": [
+        "founder",
+        "engineering"
+      ],
+      "startDate": "2026-01-05",
+      "status": "active"
+    },
+    "bilal": {
+      "displayName": "Bilal Khan",
+      "email": "bilal@acme.example",
+      "endDate": null,
+      "githubUser": "bilal-acme-example",
+      "roles": [
+        "platform"
+      ],
+      "startDate": "2026-11-10",
+      "status": "onboarding"
+    },
+    "chen": {
+      "displayName": "Chen Li",
+      "email": "chen@acme.example",
+      "endDate": null,
+      "githubUser": null,
+      "roles": [
+        "finance"
+      ],
+      "startDate": "2026-03-01",
+      "status": "active"
+    },
+    "dana": {
+      "displayName": "Dana Iyer",
+      "email": "dana@acme.example",
+      "endDate": "2026-08-31",
+      "githubUser": "dana-acme-example",
+      "roles": [
+        "engineering"
+      ],
+      "startDate": "2026-02-01",
+      "status": "former"
+    }
+  },
+  "roles": {
+    "engineering": {
+      "description": "Builds and runs the product.",
+      "githubPermission": "maintain",
+      "githubTeam": "engineering",
+      "parent": "founder",
+      "responsibilities": [
+        "Ship and operate the product",
+        "Review pull requests"
+      ]
+    },
+    "finance": {
+      "description": "Books, invoicing and tax.",
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": "operations",
+      "responsibilities": [
+        "Monthly close",
+        "GST filings"
+      ]
+    },
+    "founder": {
+      "description": "Sets direction and is ultimately accountable for everything.",
+      "githubPermission": "admin",
+      "githubTeam": "founders",
+      "parent": null,
+      "responsibilities": [
+        "Company strategy",
+        "Final approval on hires and spend"
+      ]
+    },
+    "operations": {
+      "description": "Keeps the business running day to day.",
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": "founder",
+      "responsibilities": [
+        "Vendor management",
+        "Customer support"
+      ]
+    },
+    "platform": {
+      "description": "Owns infrastructure, CI and developer tooling.",
+      "githubPermission": "push",
+      "githubTeam": "platform",
+      "parent": "engineering",
+      "responsibilities": [
+        "Keep infrastructure declarative",
+        "Run incident response"
+      ]
+    }
+  },
+  "specVersion": "0.1.0",
+  "systems": {
+    "handbook": {
+      "codeowners": [
+        {
+          "owners": [
+            "operations"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "dependsOn": [],
+      "description": "Internal handbook.",
+      "domain": null,
+      "lifecycle": "deprecated",
+      "links": {},
+      "owner": "operations",
+      "repo": null,
+      "type": "documentation"
+    },
+    "infra": {
+      "codeowners": [
+        {
+          "owners": [
+            "platform"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "dependsOn": [],
+      "description": "DNS, repositories and CI as code.",
+      "domain": "platform",
+      "lifecycle": "production",
+      "links": {},
+      "owner": "platform",
+      "repo": "acme-example/infra",
+      "type": "infrastructure"
+    },
+    "ui": {
+      "codeowners": [
+        {
+          "owners": [
+            "engineering"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "dependsOn": [],
+      "description": "Shared component library.",
+      "domain": "web",
+      "lifecycle": "experimental",
+      "links": {},
+      "owner": "engineering",
+      "repo": "acme-example/ui",
+      "type": "library"
+    },
+    "website": {
+      "codeowners": [
+        {
+          "owners": [
+            "engineering"
+          ],
+          "pattern": "*"
+        },
+        {
+          "owners": [
+            "founder"
+          ],
+          "pattern": "/content/legal/"
+        }
+      ],
+      "dependsOn": [
+        "ui",
+        "infra"
+      ],
+      "description": "Marketing website at acme.example.",
+      "domain": "web",
+      "lifecycle": "production",
+      "links": {
+        "live": "https://acme.example"
+      },
+      "owner": "engineering",
+      "repo": "acme-example/website",
+      "type": "website"
+    }
+  }
+}
