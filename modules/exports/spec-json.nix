@@ -20,7 +20,7 @@ in {
       format = "json";
       value = {
         inherit (companyLib) specVersion;
-        inherit (cfg) asOf entity people roles domains systems policies processes reliability pricing decisions;
+        inherit (cfg) asOf entity people roles domains systems policies processes reliability pricing decisions documents;
       };
     };
   };

@@ -17,7 +17,8 @@
     "processes",
     "reliability",
     "pricing",
-    "decisions"
+    "decisions",
+    "documents"
   ],
   "properties": {
     "specVersion": {
@@ -90,6 +91,25 @@
       "type": "array",
       "items": {
         "$ref": "#/$defs/decision"
+      }
+    },
+    "documents": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "title",
+          "source"
+        ],
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string"
+          }
+        }
       }
     }
   },

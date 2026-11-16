@@ -90,6 +90,81 @@ null
 
 
 
+## company\.documents
+
+
+
+Markdown documents rendered with company facts\. In the source file,
+` {{ entity.legalName }} `-style placeholders are replaced with values
+from ` company.entity ` (plus ` entity.primaryDomain `)\. Unset values render
+as a visible ` [TODO: …] ` marker and produce a warning\.
+
+
+
+*Type:*
+attribute set of (submodule)
+
+
+
+*Default:*
+
+```nix
+{ }
+```
+
+*Declared by:*
+ - [modules/documents\.nix](https://github.com/Qezta/company-framework/blob/main/modules/documents.nix)
+
+
+
+## company\.documents\.\<name>\.source
+
+
+
+Markdown source with placeholders, relative to ` company.root `\.
+
+
+
+*Type:*
+string
+
+
+
+*Example:*
+
+```nix
+"legal/privacy-policy.md"
+```
+
+*Declared by:*
+ - [modules/documents\.nix](https://github.com/Qezta/company-framework/blob/main/modules/documents.nix)
+
+
+
+## company\.documents\.\<name>\.title
+
+
+
+Document title\.
+
+
+
+*Type:*
+string
+
+
+
+*Example:*
+
+```nix
+"Privacy policy"
+```
+
+*Declared by:*
+ - [modules/documents\.nix](https://github.com/Qezta/company-framework/blob/main/modules/documents.nix)
+
+
+
 ## company\.domains
 
 
@@ -690,6 +765,30 @@ true
 
 *Declared by:*
  - [modules/exports/codeowners\.nix](https://github.com/Qezta/company-framework/blob/main/modules/exports/codeowners.nix)
+
+
+
+## company\.exports\.documents\.enable
+
+
+
+Whether to export rendered documents under ` documents/ `\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+true
+```
+
+*Declared by:*
+ - [modules/exports/documents\.nix](https://github.com/Qezta/company-framework/blob/main/modules/exports/documents.nix)
 
 
 
@@ -2618,8 +2717,6 @@ null
 
 
 ## company\.systems\.\<name>\.type
-
-
 
 Kind of system\.
 

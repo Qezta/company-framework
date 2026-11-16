@@ -16,6 +16,7 @@ validated, and who consumes it.
 | `openslo/{services,slos}.yaml` | `reliability.slos` | [OpenSLO](https://openslo.com) v1 | `oslo validate` (OpenSLO/oslo v0.13.0) | SLO tooling |
 | `agents/AGENTS.md`, `agents/<Org>/<repo>/AGENTS.md` | everything except people | [AGENTS.md](https://agents.md) convention | (Markdown) | AI coding agents |
 | `llms.txt` | entity, systems | [llms.txt](https://llmstxt.org) proposal | (Markdown) | LLM tools |
+| `documents/<id>.md` | `documents` + `entity` | Markdown with `{{ entity.* }}` placeholders | Unknown placeholders fail evaluation; unset ones warn | Websites, legal review |
 | `pricing.json` | `pricing` | Own format, [`schemas/pricing.schema.json`](../schemas/pricing.schema.json) | `check-jsonschema` | Websites, billing |
 | Pirol "Company as Code" | (reserved) | [Pirol-ai/company-as-code](https://github.com/Pirol-ai/company-as-code) v0.4.0 | Not implemented; see [ADR 0006](adr/0006-defer-pirol-company-as-code.md) | - |
 

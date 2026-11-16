@@ -12,6 +12,7 @@
     ./reliability.nix
     ./pricing.nix
     ./decisions.nix
+    ./documents.nix
     ./exports
   ];
 }
