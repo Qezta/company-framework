@@ -41,6 +41,7 @@ ______________________________________________________________________
 - [Quick start](#quick-start)
 - [Installation](#installation)
 - [Usage](#usage)
+- [How it works](#how-it-works)
 - [Configuration](#configuration)
 - [Development](#development)
 - [License](#license)
@@ -54,12 +55,43 @@ ______________________________________________________________________
 A typed, Nix-native description of a company — its entity, people, roles,
 domains and systems — that compiles to formats existing tools already read.
 
-```
- SOURCE (typed)           INTERCHANGE (standard formats)      EXECUTION (any tool)
- Nix modules  ───────────▶ spec.json, Backstage, SCIM, ──────▶ catalogs, IdPs, GitHub,
- Markdown (prose)          CODEOWNERS, OPA, Serverless         OPA, workflow engines,
-                           Workflow, Mermaid, OpenSLO,         SLO tools, AI agents
-                           AGENTS.md, llms.txt, pricing
+```mermaid
+flowchart LR
+  subgraph source["Source (typed)"]
+    nix["Nix modules<br/>company.nix"]
+    md["Markdown<br/>policies · ADRs · drafts"]
+  end
+  subgraph interchange["Interchange (standard formats)"]
+    spec["spec.json"]
+    bs["Backstage catalog"]
+    scim["SCIM 2.0"]
+    co["CODEOWNERS"]
+    opa["OPA data + Rego"]
+    sw["Serverless Workflow<br/>+ Mermaid"]
+    slo["OpenSLO"]
+    agents["AGENTS.md · llms.txt"]
+    proj["public projection"]
+  end
+  subgraph execution["Execution (any tool)"]
+    portal["developer portals"]
+    idp["identity providers"]
+    gh["GitHub"]
+    gate["policy gates"]
+    wf["workflow engines"]
+    slot["SLO tooling"]
+    ai["AI agents"]
+    iac["infrastructure as code"]
+  end
+  nix --> spec & bs & scim & co & opa & sw & slo & agents & proj
+  md --> agents
+  bs --> portal
+  scim --> idp
+  co --> gh
+  opa --> gate
+  sw --> wf
+  slo --> slot
+  agents --> ai
+  proj --> iac
 ```
 
 - **Humans read it → Markdown.** Policies, ADRs, SOPs.
@@ -123,6 +155,22 @@ in
 
 `checkedFiles` throws with every failed assertion listed;
 `failedAssertions eval.config` returns them as a list instead.
+
+## How it works
+
+```mermaid
+flowchart LR
+  mods["your company modules"] --> eval["lib.evalCompany"]
+  eval --> ok{"all assertions hold?"}
+  ok -- no --> fail["evaluation fails,<br/>listing every message"]
+  ok -- yes --> files["exporters fill<br/>output.files"]
+  files --> mat["lib.materialize<br/>(pure-Nix JSON/YAML)"]
+  mat --> valid["company-exports-valid<br/>schemas · oslo · OPA"]
+  mat --> drift["company-exports-drift<br/>vs committed exports/"]
+```
+
+Every reference, cycle, date and identity rule is checked before anything is
+written, and every export is validated against its own standard.
 
 ## Configuration
 
