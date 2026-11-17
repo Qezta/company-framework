@@ -13,7 +13,10 @@ import os
 from pathlib import Path
 from typing import Any
 
-from mcp.server.fastmcp import FastMCP
+try:  # mcp 2.x renamed FastMCP to MCPServer; same decorator and run() API.
+    from mcp.server.mcpserver import MCPServer as FastMCP
+except ImportError:  # mcp 1.x (e.g. nixpkgs 26.05)
+    from mcp.server.fastmcp import FastMCP
 
 from . import spec as q
 from .validate import validate_change as _validate
