@@ -5,6 +5,7 @@ These are authored here (MIT), because no official JSON Schema exists.
 | Schema | Based on |
 | --- | --- |
 | `company.schema.json` | The framework's own `spec.json` format. |
+| `projection.schema.json` | The framework's own `public/projection.json` format. Closed objects so no personal field can be added unnoticed. |
 | `pricing.schema.json` | The framework's own `pricing.json` format (the `pricing` definition of `company.schema.json`). |
 | `scim.schema.json` | [RFC 7643](https://www.rfc-editor.org/rfc/rfc7643) §4.1 (User), §4.2 (Group), §8.7.1 (schema URNs) and [RFC 7644](https://www.rfc-editor.org/rfc/rfc7644) §3.4.2 (ListResponse), restricted to the attributes the SCIM exporter emits. Retrieved 2026-11-16. |
 

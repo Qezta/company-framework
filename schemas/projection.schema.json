@@ -1,0 +1,134 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/Qezta/company-framework/schemas/projection.schema.json",
+  "title": "Public projection",
+  "description": "public/projection.json emitted by company-framework: safe to publish. additionalProperties is false everywhere so personal fields (names, emails, dates) can never slip in unnoticed.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "specVersion",
+    "organization",
+    "roles",
+    "systems"
+  ],
+  "properties": {
+    "specVersion": {
+      "const": "0.1.0"
+    },
+    "organization": {
+      "type": "string",
+      "minLength": 1
+    },
+    "roles": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "description",
+          "parent",
+          "githubTeam",
+          "githubPermission",
+          "githubMembers"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "parent": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "githubTeam": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "githubPermission": {
+            "enum": [
+              "pull",
+              "triage",
+              "push",
+              "maintain",
+              "admin"
+            ]
+          },
+          "githubMembers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9](-?[A-Za-z0-9])*$"
+            }
+          }
+        }
+      }
+    },
+    "systems": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "description",
+          "type",
+          "lifecycle",
+          "domain",
+          "owner",
+          "repo",
+          "codeowners"
+        ],
+        "properties": {
+          "description": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "lifecycle": {
+            "type": "string"
+          },
+          "domain": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "owner": {
+            "type": "string"
+          },
+          "repo": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "codeowners": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "pattern",
+                "owners"
+              ],
+              "properties": {
+                "pattern": {
+                  "type": "string"
+                },
+                "owners": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

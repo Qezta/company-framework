@@ -1,0 +1,119 @@
+{
+  "organization": "acme",
+  "roles": {
+    "engineering": {
+      "description": "Builds and runs the product.",
+      "githubMembers": [
+        "asha-acme-example"
+      ],
+      "githubPermission": "maintain",
+      "githubTeam": "engineering",
+      "parent": "founder"
+    },
+    "finance": {
+      "description": "Books, invoicing and tax.",
+      "githubMembers": [],
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": "operations"
+    },
+    "founder": {
+      "description": "Sets direction and is ultimately accountable for everything.",
+      "githubMembers": [
+        "asha-acme-example"
+      ],
+      "githubPermission": "admin",
+      "githubTeam": "founders",
+      "parent": null
+    },
+    "operations": {
+      "description": "Keeps the business running day to day.",
+      "githubMembers": [],
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": "founder"
+    },
+    "platform": {
+      "description": "Owns infrastructure, CI and developer tooling.",
+      "githubMembers": [
+        "bilal-acme-example"
+      ],
+      "githubPermission": "push",
+      "githubTeam": "platform",
+      "parent": "engineering"
+    }
+  },
+  "specVersion": "0.1.0",
+  "systems": {
+    "handbook": {
+      "codeowners": [
+        {
+          "owners": [
+            "operations"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "description": "Internal handbook.",
+      "domain": null,
+      "lifecycle": "deprecated",
+      "owner": "operations",
+      "repo": null,
+      "type": "documentation"
+    },
+    "infra": {
+      "codeowners": [
+        {
+          "owners": [
+            "platform"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "description": "DNS, repositories and CI as code.",
+      "domain": "platform",
+      "lifecycle": "production",
+      "owner": "platform",
+      "repo": "acme-example/infra",
+      "type": "infrastructure"
+    },
+    "ui": {
+      "codeowners": [
+        {
+          "owners": [
+            "engineering"
+          ],
+          "pattern": "*"
+        }
+      ],
+      "description": "Shared component library.",
+      "domain": "web",
+      "lifecycle": "experimental",
+      "owner": "engineering",
+      "repo": "acme-example/ui",
+      "type": "library"
+    },
+    "website": {
+      "codeowners": [
+        {
+          "owners": [
+            "engineering"
+          ],
+          "pattern": "*"
+        },
+        {
+          "owners": [
+            "founder"
+          ],
+          "pattern": "/content/legal/"
+        }
+      ],
+      "description": "Marketing website at acme.example.",
+      "domain": "web",
+      "lifecycle": "production",
+      "owner": "engineering",
+      "repo": "acme-example/website",
+      "type": "website"
+    }
+  }
+}

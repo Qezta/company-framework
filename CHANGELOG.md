@@ -6,16 +6,14 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [0.2.0](https://github.com/Qezta/company-framework/compare/v0.1.0...v0.2.0) (2026-11-16)
 
-
 ### Features
 
-* **documents:** render Markdown documents with entity placeholders ([9907de7](https://github.com/Qezta/company-framework/commit/9907de7d85a4184626e9b597d590367005d40085))
-* **documents:** render Markdown documents with entity placeholders ([be845bc](https://github.com/Qezta/company-framework/commit/be845bc96d42751197d738c56240922a06ed1054))
-
+- **documents:** render Markdown documents with entity placeholders ([9907de7](https://github.com/Qezta/company-framework/commit/9907de7d85a4184626e9b597d590367005d40085))
+- **documents:** render Markdown documents with entity placeholders ([be845bc](https://github.com/Qezta/company-framework/commit/be845bc96d42751197d738c56240922a06ed1054))
 
 ### Bug Fixes
 
-* **documents:** use a placeholder regex Linux Nix accepts ([7453b09](https://github.com/Qezta/company-framework/commit/7453b094006652a33dc1e724734c13ac478deb81))
+- **documents:** use a placeholder regex Linux Nix accepts ([7453b09](https://github.com/Qezta/company-framework/commit/7453b094006652a33dc1e724734c13ac478deb81))
 
 ## 0.1.0 (2026-11-16)
 
