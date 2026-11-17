@@ -1,4 +1,53 @@
-# company-framework
+<div id="top">
+    <div align="center">
+        <img alt='An abstract image of a donut-like object' title='Qezta' height=250 width=250 src='https://qezta.com/qezta.gif' />
+        <h1 align='center'>company-framework</h1>
+        <strong>Typed Nix description of a company that compiles to community-standard formats</strong>
+    </div>
+
+</div>
+
+______________________________________________________________________
+
+<div align='center'>
+    <a href="https://github.com/Qezta/company-framework/stargazers">
+        <img src="https://img.shields.io/github/stars/Qezta/company-framework?&style=for-the-badge&logoColor=white&color=purple&logo=starship" alt="stars"/>
+    </a>
+    <a href="https://github.com/Qezta/company-framework/">
+        <img src="https://img.shields.io/github/repo-size/Qezta/company-framework?&style=for-the-badge&logoColor=white&color=purple&logo=github" alt="size"/>
+    </a>
+    <a href="https://github.com/Qezta/company-framework/blob/main/LICENSE">
+        <img src="https://img.shields.io/github/license/Qezta/company-framework?&style=for-the-badge&logoColor=white&color=purple&logo=unlicense" alt="license"/>
+    </a>
+    <a href="https://github.com/nixos/nixpkgs">
+        <img src="https://img.shields.io/badge/Nixpkgs-unstable-blue.svg?style=for-the-badge&logo=NixOS&logoColor=white&color=purple" alt="nixpkgs"/>
+    </a>
+    <img src="https://img.shields.io/github/languages/top/Qezta/company-framework?style=for-the-badge&color=purple" alt="repo-top-language"/>
+</div>
+
+______________________________________________________________________
+
+<div align='center'>
+    <a href="https://github.com/Qezta/company-framework/actions/workflows/ci.yml">
+        <img src="https://github.com/Qezta/company-framework/actions/workflows/ci.yml/badge.svg" alt="ci"/>
+    </a>
+</div>
+
+______________________________________________________________________
+
+## Contents
+
+- [Overview](#overview)
+- [Quick start](#quick-start)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+- [Development](#development)
+- [License](#license)
+
+______________________________________________________________________
+
+## Overview
 
 > **Status: experimental (0.x).** Options and export formats may change between minor versions.
 
@@ -118,3 +167,11 @@ See [AGENTS.md](AGENTS.md) for contribution rules and
 ## License
 
 [MIT](LICENSE)
+
+<div align="right">
+
+[![][back-to-top]](#top)
+
+</div>
+
+[back-to-top]: https://img.shields.io/badge/-BACK_TO_TOP-151515?style=flat-square&color=purple
