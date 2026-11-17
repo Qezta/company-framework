@@ -43,6 +43,16 @@ in {
       default = "exports";
       description = "Directory, relative to `root`, where generated exports are committed.";
     };
+    mcp.module = mkOption {
+      type = types.nullOr (types.addCheck types.str isSafeDir);
+      default = null;
+      example = "company.nix";
+      description = ''
+        The company module file, relative to the repository root. Lets the
+        MCP server's `validate_change` evaluate the working tree. When null,
+        `validate_change` is disabled.
+      '';
+    };
     evaluated = mkOption {
       type = types.raw;
       readOnly = true;
@@ -77,6 +87,23 @@ in {
         inherit exports;
         spec = pkgs.runCommand "company-spec.json" {} "cp ${exports}/spec.json $out";
         update-exports = updateExports;
+      };
+
+      ## `nix run .#mcp`: stdio MCP server over this repository's committed
+      ## exports (re-read on every call), for AI clients such as Claude Code.
+      apps.mcp = {
+        type = "app";
+        program = lib.getExe (pkgs.writeShellApplication {
+          name = "company-mcp-here";
+          runtimeInputs = [pkgs.git];
+          text = ''
+            root="$(git rev-parse --show-toplevel)"
+            export COMPANY_SPEC="$root/${cfg.exportsDir}/spec.json" COMPANY_ROOT="$root"
+            ${lib.optionalString (cfg.mcp.module != null) "export COMPANY_MODULE=\"$root/${cfg.mcp.module}\""}
+            exec ${lib.getExe (pkgs.callPackage ./pkgs/company-mcp.nix {})} "$@"
+          '';
+        });
+        meta.description = "Read-only MCP server over the company spec";
       };
 
       apps.update-exports = {

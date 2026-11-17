@@ -2,6 +2,13 @@
 
 Smaller choices that don't warrant an ADR. Newest first.
 
+## 2026-11-17 (phase 5)
+
+- **MCP server in Python** with the official `mcp` SDK (packaged in nixpkgs), so nothing needs vendoring.
+- **`validate_change` runs the real evaluation**: the patch is overlaid as an extra module (leaves at priority 50, so values can be replaced and entries added; removal isn't supported), then the OPA policies run on the result. A schema-only check would miss cross-reference and policy errors.
+- **The server re-reads `spec.json` on every call** so regenerated exports are picked up without restarting.
+- **Policy text is read only from inside `company.root`**; paths escaping it are ignored (tested).
+
 ## 2026-11-16 (phase 2)
 
 - **Validation ships with the flake module.** `lib/validate.nix` runs every standard's validator plus the OPA policies on any company's exports, so consumers get `company-exports-valid` for free.
