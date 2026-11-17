@@ -4,6 +4,19 @@ All notable changes to this project are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0](https://github.com/Qezta/company-framework/compare/v0.3.0...v0.4.0) (2026-11-17)
+
+
+### Features
+
+* **mcp:** add a read-only MCP server over the company spec ([d9f60a9](https://github.com/Qezta/company-framework/commit/d9f60a9e9aac79e89677f3fd8a7601799c6a131d))
+* **mcp:** add a read-only MCP server over the company spec ([ff40691](https://github.com/Qezta/company-framework/commit/ff4069118bfae0b0d9911584fb3b10a760205253))
+
+
+### Bug Fixes
+
+* **mcp:** support both mcp 1.x and 2.x ([c793510](https://github.com/Qezta/company-framework/commit/c7935108aec45893358683bc2876d5c37a150fff))
+
 ## [0.3.0](https://github.com/Qezta/company-framework/compare/v0.2.0...v0.3.0) (2026-11-17)
 
 
