@@ -912,6 +912,30 @@ true
 
 
 
+## company\.exports\.publicProjection\.enable
+
+
+
+Whether to export ` public/projection.json ` (roles, GitHub teams and logins, systems; no personal details)\.
+
+
+
+*Type:*
+boolean
+
+
+
+*Default:*
+
+```nix
+true
+```
+
+*Declared by:*
+ - [modules/exports/public-projection\.nix](https://github.com/Qezta/company-framework/blob/main/modules/exports/public-projection.nix)
+
+
+
 ## company\.exports\.scim\.enable
 
 
@@ -2686,8 +2710,6 @@ string
 
 ## company\.systems\.\<name>\.repo
 
-
-
 Source repository as ` Org/name `\.
 
 
@@ -2717,6 +2739,8 @@ null
 
 
 ## company\.systems\.\<name>\.type
+
+
 
 Kind of system\.
 

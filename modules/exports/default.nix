@@ -16,6 +16,7 @@ in {
     ./mermaid.nix
     ./openslo.nix
     ./documents.nix
+    ./public-projection.nix
     ./pirol.nix
   ];
 

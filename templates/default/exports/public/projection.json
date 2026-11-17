@@ -1,0 +1,14 @@
+{
+  "organization": "todo-company",
+  "roles": {
+    "founder": {
+      "description": "Sets direction and is accountable for everything.",
+      "githubMembers": [],
+      "githubPermission": "pull",
+      "githubTeam": null,
+      "parent": null
+    }
+  },
+  "specVersion": "0.1.0",
+  "systems": {}
+}

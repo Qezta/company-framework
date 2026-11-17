@@ -16,6 +16,8 @@
     serverless-workflow = ''yq -i 'del(.document.dsl)' workflows/onboarding.sw.yaml'';
     openslo = ''yq -i 'select(.kind == "SLO").apiVersion = "openslo/v9"' openslo/slos.yaml'';
     codeowners = ''echo "docs/" >> codeowners/acme-example/website/CODEOWNERS'';
+    ## A personal field must never pass the public projection's schema.
+    public-projection = ''jq '.roles.founder.email = "someone@example.com"' public/projection.json > t && mv t public/projection.json'';
     opa = ''jq '.company.people.ghost = {"status": "active", "roles": [], "githubUser": null}' opa/data.json > t && mv t opa/data.json'';
   };
   run = name: mutate: ''
