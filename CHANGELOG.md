@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0](https://github.com/Qezta/company-framework/compare/v0.2.0...v0.3.0) (2026-11-17)
+
+
+### Features
+
+* **exports:** add a public projection with no personal data ([eeb3ccb](https://github.com/Qezta/company-framework/commit/eeb3ccb613ecb8feba506b6b0dde51279de1e50a))
+* **exports:** add a public projection with no personal data ([2060b7e](https://github.com/Qezta/company-framework/commit/2060b7e9576877d142e4cedbed1df09529114b5f))
+
 ## [0.2.0](https://github.com/Qezta/company-framework/compare/v0.1.0...v0.2.0) (2026-11-16)
 
 ### Features
