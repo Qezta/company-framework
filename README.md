@@ -43,6 +43,7 @@ ______________________________________________________________________
 - [Usage](#usage)
 - [How it works](#how-it-works)
 - [Configuration](#configuration)
+- [AI agents (MCP)](#ai-agents-mcp)
 - [Development](#development)
 - [License](#license)
 
@@ -199,6 +200,45 @@ that uses every option.
 Every reference is checked (roles, parents, owners, domains, dependencies,
 CODEOWNERS), the role tree must be acyclic, dates must be real calendar dates,
 GitHub-mapped roles need a `githubUser`, and team slugs must be unique.
+
+## AI agents (MCP)
+
+`nix run .#mcp` starts a read-only [Model Context Protocol](https://modelcontextprotocol.io)
+server over stdio, backed by your committed `exports/spec.json` (re-read on
+every call). Point an MCP client at it, for example in Claude Code's
+`.mcp.json`:
+
+```json
+{ "mcpServers": { "company": { "command": "nix", "args": ["run", ".#mcp"] } } }
+```
+
+| Tool | Returns |
+| --- | --- |
+| `get_entity` | Names, jurisdiction, contacts, links, brand |
+| `list_people(status?)` | People, optionally filtered by status |
+| `get_role(role_id)` | Role with members and child roles |
+| `who_owns(target)` | Owner of a system, a repo, or `Org/repo:path` (last CODEOWNERS rule wins) |
+| `get_policy(policy_id)` | Policy metadata, rules and Markdown text |
+| `get_process(process_id)` | Steps, roles, approvers, SLAs |
+| `validate_change(patch)` | Runs the full Nix evaluation and OPA policies with `patch` overlaid; writes nothing |
+
+```mermaid
+sequenceDiagram
+  participant A as AI client
+  participant M as company MCP server
+  participant S as exports/spec.json
+  participant N as nix eval + OPA
+  A->>M: who_owns("Org/repo:path")
+  M->>S: read
+  M-->>A: owners (last matching rule)
+  A->>M: validate_change(patch)
+  M->>N: evaluate company module + patch
+  N-->>M: failed assertions, policy denials
+  M-->>A: valid? and why
+```
+
+`validate_change` needs `nix` on `PATH` and `company.mcp.module` set to your
+company module file (e.g. `"company.nix"`).
 
 ## Development
 

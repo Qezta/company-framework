@@ -6,5 +6,6 @@
   company = {
     modules = [../examples/acme/acme.nix];
     exportsDir = "examples/acme/exports";
+    mcp.module = "examples/acme/acme.nix";
   };
 }
