@@ -19,7 +19,17 @@
           then inputs."nixpkgs-2605"
           else inputs.nixpkgs
         ) {inherit system;};
-        formatter = pkgs.alejandra;
+        ## With no paths, alejandra reads stdin; nix fmt should format the repo.
+        formatter = pkgs.writeShellApplication {
+          name = "format-company";
+          runtimeInputs = [pkgs.alejandra];
+          text = ''
+            if [ "$#" -eq 0 ]; then
+              set -- .
+            fi
+            exec alejandra "$@"
+          '';
+        };
       };
     };
 
