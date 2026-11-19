@@ -30,6 +30,9 @@
             mkdir -p "$dir" && cd "$dir"
             nix flake init -t "path:$GITHUB_WORKSPACE#default"
             git init -q && git add -A
+            # No arguments and no stdin must still format the new company.
+            timeout 60 nix fmt --override-input company-framework "path:$GITHUB_WORKSPACE" < /dev/null
+            git diff --exit-code
             nix flake check -L --override-input company-framework "path:$GITHUB_WORKSPACE"
           '';
         }
