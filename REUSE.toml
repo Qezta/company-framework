@@ -3,7 +3,7 @@ version = 1
 [[annotations]]
 path = "**"
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Divit Mittal"
+SPDX-FileCopyrightText = "2026 Qezta (OPC) Pvt. Ltd."
 SPDX-License-Identifier = "MIT"
 
 [[annotations]]
