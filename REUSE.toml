@@ -1,7 +1,22 @@
 version = 1
 
 [[annotations]]
-path = "**"
+path = [
+  "flake.nix",
+  "flake.lock",
+  "flake-module.nix",
+  "*.md",
+  "*.json",
+  "*.toml",
+  "lib/**",
+  "modules/**",
+  "pkgs/**",
+  "tools/**",
+  "tests/**",
+  "docs/**",
+  "schemas/**",
+  "LICENSES/MIT.txt",
+]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Qezta (OPC) Pvt. Ltd."
 SPDX-License-Identifier = "MIT"
