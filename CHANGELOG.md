@@ -4,6 +4,14 @@ All notable changes to this project are documented here. The format is based
 on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.1](https://github.com/Qezta/company-framework/compare/v0.4.0...v0.4.1) (2026-11-27)
+
+
+### Bug Fixes
+
+* **template:** make bare nix fmt format the new company ([d10f570](https://github.com/Qezta/company-framework/commit/d10f570edbe6ef0887e326f9f45ed30608f9d597))
+* **template:** make bare nix fmt format the new company ([59707f7](https://github.com/Qezta/company-framework/commit/59707f784ce0248fa929c804d7084f7095d41da9))
+
 ## [0.4.0](https://github.com/Qezta/company-framework/compare/v0.3.0...v0.4.0) (2026-11-17)
 
 
