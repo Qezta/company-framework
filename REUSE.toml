@@ -1,5 +1,6 @@
 version = 1
 
+# Code written for company-framework.
 [[annotations]]
 path = [
   "flake.nix",
@@ -8,6 +9,9 @@ path = [
   "*.md",
   "*.json",
   "*.toml",
+  ".*",
+  ".*/**",
+  "flake/**",
   "lib/**",
   "modules/**",
   "pkgs/**",
@@ -15,14 +19,25 @@ path = [
   "tests/**",
   "docs/**",
   "schemas/**",
+  "mcp/**",
+  "opa/**",
   "LICENSES/MIT.txt",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Qezta (OPC) Pvt. Ltd."
 SPDX-License-Identifier = "MIT"
 
+# Example content, the starter template, and generated exports. These
+# illustrate the framework; they are not a claim over downstream projects.
 [[annotations]]
-path = ["vendor/**/*.json", "vendor/**/*.yaml"]
+path = ["examples/**", "templates/**"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Qezta (OPC) Pvt. Ltd."
+SPDX-License-Identifier = "MIT"
+
+# Specs shipped for validation. Their copyright stays with the upstream authors.
+[[annotations]]
+path = ["vendor/**"]
 precedence = "override"
 SPDX-FileCopyrightText = "The Backstage Authors; The Serverless Workflow Specification Authors"
 SPDX-License-Identifier = "Apache-2.0"
